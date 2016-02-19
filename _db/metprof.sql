@@ -10,10 +10,30 @@ Target Server Type    : MYSQL
 Target Server Version : 50545
 File Encoding         : 65001
 
-Date: 2016-02-18 19:04:19
+Date: 2016-02-19 17:51:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for `catalog`
+-- ----------------------------
+DROP TABLE IF EXISTS `catalog`;
+CREATE TABLE `catalog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(500) DEFAULT NULL,
+  `descr` varchar(5000) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of catalog
+-- ----------------------------
+INSERT INTO `catalog` VALUES ('1', 'AAA', 'aaa', '0', null);
+INSERT INTO `catalog` VALUES ('2', 'BBB', 'bbb', '0', null);
+INSERT INTO `catalog` VALUES ('3', 'CCC', 'ccc', '0', null);
+
 -- ----------------------------
 -- Table structure for `login_attempts`
 -- ----------------------------

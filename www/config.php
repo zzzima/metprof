@@ -4,7 +4,7 @@
 define("SITE_URL","http://metprof.loc");
 define("SITE_DIR","C:/WebServers/home/metprof.loc/www/");
 define("SITE_DOMEN","metprof.loc");
-define("ORG_NAME","МетПроф");
+define("ORG_NAME","РњРµС‚РџСЂРѕС„");
 
 $config = array();
 // DB settings

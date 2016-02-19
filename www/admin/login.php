@@ -1,5 +1,4 @@
 <?php
-include_once("../common.php");
 include_once("admin.inc.php");
 
 $errorcode = array(
@@ -8,7 +7,6 @@ $errorcode = array(
     102=>"Пять попыток неправильного ввода пароля. Попробуйте снова через 15 минут.",
     103=>"Пользователь не найден. Попробуйте снова."
 );
-
 
 $code = 0;
 if (isset($_REQUEST['username'], $_REQUEST['password'])) {
