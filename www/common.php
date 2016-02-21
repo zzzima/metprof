@@ -44,10 +44,8 @@ $ADODB_FETCH_MODE = ADODB_FETCH_BOTH;
 
 //classes
 include_once SITE_DIR."/classes/cls_utils.php";
-//Utils
-//if ((isset($utils) && (!is_object($utils) || (get_class($utils) != "utils"))) || !isset($utils)) {
-  $utils = new Utils;
-//}
+$utils = new Utils;
+
 
 include_once "/includes/functions.php";
 sec_session_start();

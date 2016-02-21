@@ -16,7 +16,7 @@ if (isset($_REQUEST['username'], $_REQUEST['password'])) {
     $code = login($username, $password);
     if ($code == 0) {
         // Login success
-        header('Location: index.php');
+        header('Location: '.DEFAULT_ADMIN_PAGE);
         exit();
         //var_dump($_SESSION['user_id'],$_SESSION['username'],$_SESSION['login_string']);
     } else {
