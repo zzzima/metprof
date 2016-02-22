@@ -9,8 +9,7 @@ switch($a){
     case "catalog":
         $open_ids = isset($_REQUEST["open_ids"]) ? explode(',', $_REQUEST("open_ids")) : array();
         $ware_id = isset($_REQUEST["ware_id"]) ? $_REQUEST["ware_id"] : 0;
-        $ware_id = 7;
-        $afunc->handler_CatalogTree($open_ids,$ware_id);
+        $afunc->handler_getCatalogTree($open_ids,$ware_id);
         
         $jsscripts[] = "tparty/jstree/jstree.min.js";
         $jsscripts[] = "js/admin.catalog.js";

@@ -2,10 +2,10 @@ function notify(text, type){
     //type: error, success, info, notice
     var title;
     switch(type){
-        case "error": title ="Error"; break;
-        case "success": title ="Success"; break;
-        case "info": title ="Info"; break;
-        case "notice": title="Notice"; break;
+        case "error": title ="Ошибка"; break;
+        case "success": title ="Все получилось"; break;
+        case "info": title ="Информация"; break;
+        case "notice": title="Внимание"; break;
     }
     var opts = {
         title: title,

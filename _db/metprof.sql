@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50545
 File Encoding         : 65001
 
-Date: 2016-02-21 23:57:47
+Date: 2016-02-23 00:03:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -46,7 +46,6 @@ INSERT INTO `catalog` VALUES ('13', 'A11', 'a11', '5', null);
 INSERT INTO `catalog` VALUES ('14', 'B21', 'b21', '8', null);
 INSERT INTO `catalog` VALUES ('15', 'D11', 'd11', '10', null);
 INSERT INTO `catalog` VALUES ('16', 'D31', 'd31', '12', null);
-INSERT INTO `catalog` VALUES ('17', 'A12', 'a12', '5', null);
 
 -- ----------------------------
 -- Table structure for `login_attempts`
@@ -125,3 +124,19 @@ INSERT INTO `ware_catalog` VALUES ('5', '14');
 INSERT INTO `ware_catalog` VALUES ('6', '14');
 INSERT INTO `ware_catalog` VALUES ('7', '15');
 INSERT INTO `ware_catalog` VALUES ('7', '9');
+
+-- ----------------------------
+-- Table structure for `ware_image`
+-- ----------------------------
+DROP TABLE IF EXISTS `ware_image`;
+CREATE TABLE `ware_image` (
+  `image_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ware_id` int(11) NOT NULL,
+  `extension` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`image_id`),
+  KEY `idx_ware_id` (`ware_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ware_image
+-- ----------------------------

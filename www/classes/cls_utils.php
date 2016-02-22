@@ -121,6 +121,14 @@ function GetHashtableWithScalarArrayValue($query,$fkey,$sa_keys=array()){
 }
 // end database
 
+// file
+function delFile($filepath){
+    if (file_exists($filepath)){
+        unlink($filepath);
+    }		
+}
+// end file
+
 //end class
 }
 ?>

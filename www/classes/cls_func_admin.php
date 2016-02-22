@@ -1,6 +1,6 @@
 <?php 
 Class AFunc{
-    public function handler_CatalogTree($open_ids=array(),$ware_id=0){
+    public function handler_getCatalogTree($open_ids=array(),$ware_id=0){
         global $smarty;
         if(count($open_ids)==0 && $ware_id>0){
             $open_ids = $this->getCatalogByWareId($ware_id);
@@ -13,10 +13,16 @@ Class AFunc{
             "jsvars"=> $jsvars,
         ));
     }    
-    
+
+    /* catalog */
     public function getCatalogById($catalog_id){
         global $utils;
-        $query = "select * from catalog where id=".$catalog_id;
+        $query = "SELECT c.*, count(c_sub.id) as subs, count(wc.ware_id) as ware
+            from catalog c
+            left join ware_catalog wc on c.id = wc.catalog_id
+            left join catalog c_sub on c.id = c_sub.parent_id
+            where c.id = ".$catalog_id."
+            group by c.id";
         $dt = $utils->GetAssocArray($query);
         
         return count($dt)>0 ? $dt[0] : false;      
@@ -45,6 +51,67 @@ Class AFunc{
         return $arr;      
     }
     
+    public function getWareByCatalogId($catalog_id){
+        global $utils;
+        $query = "SELECT w.*
+            FROM ware w
+            JOIN ware_catalog wc on w.id = wc.ware_id
+            WHERE wc.catalog_id = ".$catalog_id;
+        $dt = $utils->GetAssocArray($query);
+        
+        return count($dt)>0 ? $dt : false;           
+    }
+    
+    public function delCatalogById($catalog_id){
+        global $dbconn;
+        
+        $query = "delete from catalog where id = ".$catalog_id;
+        $dbconn->Execute($query);
+        
+        return true;
+    } 
+    
+    public function delWareImageFiles($filename, $ext){
+        global $utils;
+        $files = array();
+        $files[] = $filename.".".$ext;
+        $files[] = $filename."_s.".$ext;
+        $files[] = $filename."_b.".$ext;
+        
+        foreach($files as $filename){
+            $filepath = WARE_IMG_DIR.$filename;
+            $utils->delFile($filepath);
+        }    
+    }
+    
+    public function delWareById($ware_id){
+        global $dbconn, $utils;
+        
+        //get catalogs
+        $arr = $this->getCatalogByWareId($ware_id);
+        
+        //delete ware
+        $query = "delete from ware where id = ".$ware_id;
+        $dbconn->Execute($query);
+        
+        //delete ware catalog
+        $query = "DELETE FROM ware_catalog WHERE ware_id = ".$ware_id;
+        $dbconn->Execute($query);
+        
+        //delete ware images
+        $query = "select image_id, ware_id, extension as ext from ware_image where ware_id =".$ware_id;
+        $dt = $utils->GetAssocArray($query);	
+
+        foreach($dt as $dr){
+            $utils->delWareImageFiles($dr["ware_id"]."_".$dr["image_id"], $dr["EXT"]);
+        }
+
+        $query = "delete from ware_image where ware_id =".$ware_id;
+        $dbconn->Execute($query);    
+        
+        return true;
+    } 
+    
     public function getTree($open_ids, $ware_id, $json=false){
         $opened = array();
         foreach($open_ids as $open_id){
@@ -69,17 +136,6 @@ Class AFunc{
         return $path;
     }   
     
-    public function getWareByCatalogId($catalog_id){
-        global $utils;
-        $query = "SELECT w.*
-            FROM ware w
-            JOIN ware_catalog wc on w.id = wc.ware_id
-            WHERE wc.catalog_id = ".$catalog_id;
-        $dt = $utils->GetAssocArray($query);
-        
-        return count($dt)>0 ? $dt : false;           
-    }
-    
     public function getWareInCatalog($catalog_id, $ware_id=0){        
         $icn_endpoint = '/assets/img/icn_ware.png';   
         $dt = $this->getWareByCatalogId($catalog_id);
@@ -94,7 +150,7 @@ Class AFunc{
                     "selected"=>($dr["id"] == $ware_id ? true : false)
                 ),
                 "children"=>false,
-                "li_attr"=>array("data-type"=>"ware"),
+                "li_attr"=>array("data-type"=>"ware","text"=>$dr["name"]),
                 "a_attr"=>"",
                 "icon"=>$icn_endpoint
             );
@@ -109,19 +165,16 @@ Class AFunc{
         $dt = $this->getCatalogByParentId($parent_id);   
         if($dt){
             foreach($dt as $dr){
-                $span_name = '<span class="x-catalog">'.$dr["name"].'</span>';
-                //$span_sub = $dr["subs"]>0 ? '<span class="text-muted"><small>вложенные папки - '.$dr["subs"].'</small></span>' : '';
-                //$span_ware = $dr["ware"]>0 ? '<span class="text-muted"><small>продукты - '.$dr["ware"].'</small></span>' :  '';
+                $span_name = $dr["name"];
                 $node = array(
                     "id"=> "c".$dr["id"],
-                    //"text"=>$span_name.$span_sub.$span_ware,
                     "text"=>$span_name,
                     "state"=> array(
                         "opened"=>in_array($dr["id"],$opened),
                         "disabled"=>false,
                     ),
                     "children"=>($dr["subs"]>0 || $dr["ware"]>0),
-                    "li_attr"=>array("data-type"=>"catalog","data-subs"=>$dr["subs"],"data-ware"=>$dr["ware"]),
+                    "li_attr"=>array("data-type"=>"catalog","data-subs"=>$dr["subs"],"data-ware"=>$dr["ware"],"data-text"=>$dr["name"]),
                     "a_attr"=>"",
                 );
                 if(in_array($dr["id"],$opened)){
@@ -131,9 +184,6 @@ Class AFunc{
                         $node["children"] = $this->getWareInCatalog($dr["id"], $ware_id);
                     }
                 }
-                /*if($dr["level_id"] == 5){
-                    $node["icon"] = $icn_endpoint;
-                }*/
                 $tree[] = $node;
             }
         }

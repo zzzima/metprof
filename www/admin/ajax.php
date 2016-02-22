@@ -30,6 +30,21 @@ function ajaxCase($ajaxaction){
                 $srv["data"]=$afunc->dipTree($p["node_id"]);
             }
             break;
+        case "delete_catalog":
+            $p = $utils->getRequestParams(array("node_id"=>0));
+            if($p["node_id"]==0){
+                $srv["status"]="error";
+                $srv["message"]="Передан неверный ID каталога";
+                return $srv;
+            }            
+            $dr = $afunc->getCatalogById($p["node_id"]);
+            if($dr["subs"]>0 || $dr["ware"]>0){
+                $srv["status"]="error";
+                $srv["message"]="Невозможно удалить не пустую папку";
+                return $srv;                
+            }
+            $afunc->delCatalogById($p["node_id"]);
+            break;
     }
     return $srv;
 }
