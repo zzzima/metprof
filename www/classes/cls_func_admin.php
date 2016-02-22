@@ -80,7 +80,7 @@ Class AFunc{
         return count($dt)>0 ? $dt : false;           
     }
     
-    private function getWareInCatalog($catalog_id, $ware_id){        
+    public function getWareInCatalog($catalog_id, $ware_id=0){        
         $icn_endpoint = '/assets/img/icn_ware.png';   
         $dt = $this->getWareByCatalogId($catalog_id);
         

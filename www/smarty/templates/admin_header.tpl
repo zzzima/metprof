@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MetProf - admin</title>
+<title>Test<!--MetProf - admin--></title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 
 <link rel="stylesheet" href="/assets/tparty/bootstrap/css/bootstrap.min.css">
+<link media="all" rel="stylesheet" type="text/css" href="/assets/tparty/pnotify/pnotify.custom.min.css" />
 {section name="css" loop=$stylesheet}
     <link rel='stylesheet' href='/assets/{$stylesheet[css]}' type='text/css'>
 {/section}
 
 <script src="/assets/tparty/jquery/jquery-2.2.0.min.js"></script>
 <script src="/assets/tparty/bootstrap/js/bootstrap.min.js"></script>   
-
+<script type="text/javascript" src="/assets/tparty/pnotify/pnotify.custom.min.js"></script>
+<script src="/assets/js/admin.general.js"></script>   
 {section name="js" loop=$jsscripts}
     <script language="javascript" type="text/javascript" src="/assets/{$jsscripts[js]}"></script>
 {/section}
@@ -28,44 +30,16 @@
 </script>    
 {/if}
 <script>
-{literal}
-    function notificationView(text, type) {
-        //type: success, info, warning, danger
-        if (!text || !type) return false;
-        /*var $m = $("<div>").addClass(type).html(text);
-        var time = 4000;
-        if (type == "error") {time = 20000;}
-        if (type == "alert") {time = 10000;}
-
-        $("#notification").append($m);
-        //$m.slideDown();
-        $m.click(function(){$m.remove()});
-        $m.idle(time).fadeOut(300, function(){$m.remove();});*/
-        var $ntf = $("#notification");
-        $ntf.removeClass("alert-success alert-info alert-warning alert-danger")
-        $ntf.addClass("alert-"+type);
-        
-        var time = 10000;
-        if(type=="danger"){ time = 20000; }
-        var $mess = $("<div>").html(text);
-        
-        $ntf.append($mess);
-        $ntf.click(function(){ $mess.remove(); $ntf.alert('close'); });
-        $ntf.idle(time).fadeOut(300, function(){ $mess.remove(); $ntf.alert('close'); });        
-        
-        $ntf.alert();
-    }
-    
+{literal} 
     $(function () {
         $('[data-toggle="popover"]').popover();
         
-        $(".alert").alert('close'); 
-        
-        $("#testnotif").click(function(){
-        notificationView("Hey!! It is me!", "danger");
+        PNotify.prototype.options.styling = "bootstrap3";
+        $("#testnotif").click(function(){ 
+            //notificationView("Hey!! It is me!", "danger"); 
+            notify("Hey! Look at this!", "notice");
         });
-
-    });
+    });    
 {/literal}
 </script>
 
@@ -82,26 +56,25 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-      <a class="navbar-brand" href="#">МетПроф Админ</a>
+      <a class="navbar-brand" href="#"><!--МетПроф Админ-->Test</a>
     </div>
     {if !$nonav}
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/admin/?a=catalog">Каталог</a></li>
-        <li><a href="#">Настройки</a></li>
+        <li class="active"><a href="/admin/?a=catalog"><!--Каталог-->Testcat</a></li>
+        <li><a href="#"><!--Настройки-->Testset</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="logout.php">Выход</a></li>
+        <li><a href="logout.php"><!--Выход-->Logout</a></li>
       </ul>        
     </div><!-- /.navbar-collapse -->
     {/if}
   </div><!-- /.container-fluid -->
 </nav>
-</header> 
-<div id="notification" class="alert alert-info fade in">
-</div>  
-<a id="testnotif" href="#">notification</a>
+</header>
+<div id="notification"></div>  
+<!--a id="testnotif" href="#">notification</a-->
 <main>
     
 

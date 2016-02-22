@@ -2,17 +2,19 @@ function getNodeChildrens(node_id, type){
     var childrens;
     var bind = {
         ajaxaction: "get_catalog_treenode",
-        node_id: node_id
+        node_id: node_id.replace('c',''),
+        type: type
     };
     $.ajax({
         type: "POST",
         url: "/admin/ajax.php",
         data: bind,
+        dataType: "json",        
         async: false,
         cache: false,
         success: function (data, textStatus) {
-            var dt = data.dt;    
-            if(dt.status === "error"){ ErrorDialog(dt.message); }
+            var dt = data;  
+            if(dt.status === "error"){ notificationView(dt.message, "error"); }
             if(dt.status === "ok"){
                 childrens = dt.data;
             }
@@ -66,8 +68,17 @@ $(function () {
         'core' : {
             //'data' : json_tree
             "check_callback" : true,
-            'data': function (node, callback) {
-                var data =  node.id === '#' ? json_tree : getNodeChildrens(node.id);
+            'data': function (node, callback) {               
+                var data;
+                if(node.id === '#'){
+                    data = json_tree;
+                }else{
+                    var li = $("li#"+node.id+".jstree-node");
+                    var ware = li.data("ware");
+                    var type = (+ware>0) ? "ware" : "catalog";
+                    data = getNodeChildrens(node.id, type);
+                }
+                //var data =  node.id === '#' ? json_tree : getNodeChildrens(node.id);
                 data = typeof(data) === 'undefined' ? ['undefined'] : data;
                 callback.call(this, data);
             }
@@ -122,9 +133,10 @@ $(function () {
                         delete items.deleteware;
                         break;
                     case "ware":
-                        if(+ware>0) delete items.addware;
-                        delete items.editware;
-                        delete items.deleteware;                            
+                        delete items.addware;
+                        delete items.addcatalog;                        
+                        delete items.editcatalog;
+                        delete items.deletecatalog;                            
                         break;
                 }   
                 return items;

@@ -14,21 +14,6 @@ function getRequestParam($p_key,$p_default_value){
     return isset($_REQUEST[$p_key]) ? $_REQUEST[$p_key] : $p_default_value;
 }
 
-/*function getRequestParams($p_keys){
-	$p=array();
-
-	$keys = explode(",", $p_keys);
-        
-        foreach($keys as $key){
-            if(isset($_REQUEST[$key])){
-                $p[$key] = $_REQUEST[$key];
-            }else{
-                $p[$key] = null;
-            }
-        }
-	return $p;
-}*/
-
 // Database
 function GetAssocArray($query)
 {
