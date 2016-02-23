@@ -43,9 +43,17 @@ function ajaxCase($ajaxaction){
                 $srv["message"]="Невозможно удалить не пустую папку";
                 return $srv;                
             }
-            $nodes = $afunc->delCatalogById($p["node_id"]);
-            $srv["data"]["nodes"] = $nodes;
+            $afunc->delCatalogById($p["node_id"]);
             break;
+        case "delete_ware":
+            $p = $utils->getRequestParams(array("node_id"=>0));
+            if($p["node_id"]==0){
+                $srv["status"]="error";
+                $srv["message"]="Передан неверный ID товара";
+                return $srv;
+            }            
+            $srv["data"] = $afunc->delWareById($p["node_id"]);            
+            break;            
     }
     return $srv;
 }

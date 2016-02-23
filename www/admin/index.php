@@ -18,6 +18,17 @@ switch($a){
         $content_template = 'admin_catalog_tree.tpl'; 
         
         break;
+    case "editcatalog":
+        $p = $utils->getRequestParams(array("id"=>0,"parent_id"=>0));
+        $afunc->handler_editCatalog($p);
+        $jsscripts[] = "js/admin.catalog.edit.js";
+        $content_template = 'admin_catalog_edit.tpl'; 
+        break;
+    case "editware":
+        $p = $utils->getRequestParams(array("id"=>0,"parent_id"=>0));
+        $jsscripts[] = "js/admin.ware.edit.js";
+        $content_template = 'admin_ware_edit.tpl'; 
+        break;
     case "settings":
         break;
     default:

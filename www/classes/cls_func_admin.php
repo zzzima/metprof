@@ -14,18 +14,32 @@ Class AFunc{
         ));
     }    
 
+    public function handler_editCatalog($p){
+        global $smarty;
+        
+        if($p["id"]>0){
+            $dr = $this->getCatalogbyId($p["id"],true);
+        }
+    }
+    
     /* catalog */
-    public function getCatalogById($catalog_id){
+    public function getCatalogById($catalog_id,$light=false){        
         global $utils;
-        $query = "SELECT c.*, count(c_sub.id) as subs, count(wc.ware_id) as ware
-            from catalog c
-            left join ware_catalog wc on c.id = wc.catalog_id
-            left join catalog c_sub on c.id = c_sub.parent_id
-            where c.id = ".$catalog_id."
-            group by c.id";
+        $row = !is_array($catalog_id);
+        $ids = $row ? array($catalog_id) : $catalog_id;
+        if($light){
+            $query = "select * from catalog where id in (".implode(',',$ids).")";
+        }else{
+            $query = "SELECT c.*, count(c_sub.id) as subs, count(wc.ware_id) as ware
+                from catalog c
+                left join ware_catalog wc on c.id = wc.catalog_id
+                left join catalog c_sub on c.id = c_sub.parent_id
+                where c.id in (".implode(',',$ids).")
+                group by c.id";
+        }
         $dt = $utils->GetAssocArray($query);
         
-        return count($dt)>0 ? $dt[0] : false;      
+        return count($dt)>0 ? ($row ? $dt[0] : $dt) : false;      
     }  
     
     public function getCatalogByParentId($parent_id){
@@ -46,7 +60,7 @@ Class AFunc{
     public function getCatalogByWareId($ware_id){
         global $utils;
         $query = "SELECT DISTINCT catalog_id FROM ware_catalog WHERE ware_id = ".$ware_id;
-        $arr = $utils->GetIndexHash($query);;
+        $arr = $utils->GetIndexHash($query);
         
         return $arr;      
     }
@@ -88,8 +102,9 @@ Class AFunc{
         global $dbconn, $utils;
         
         //get catalogs
-        $arr = $this->getCatalogByWareId($ware_id);
-        
+        $catalog_ids = $this->getCatalogByWareId($ware_id);
+        $dt_c = $this->getCatalogById($catalog_ids);
+
         //delete ware
         $query = "delete from ware where id = ".$ware_id;
         $dbconn->Execute($query);
@@ -100,16 +115,16 @@ Class AFunc{
         
         //delete ware images
         $query = "select image_id, ware_id, extension as ext from ware_image where ware_id =".$ware_id;
-        $dt = $utils->GetAssocArray($query);	
+        $dt_i = $utils->GetAssocArray($query);	
 
-        foreach($dt as $dr){
+        foreach($dt_i as $dr){
             $utils->delWareImageFiles($dr["ware_id"]."_".$dr["image_id"], $dr["EXT"]);
         }
 
         $query = "delete from ware_image where ware_id =".$ware_id;
         $dbconn->Execute($query);    
-        
-        return $arr;
+
+        return $dt_c;
     } 
     
     public function getTree($open_ids, $ware_id, $json=false){
