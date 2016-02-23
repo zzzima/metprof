@@ -76,7 +76,7 @@ Class AFunc{
         $files = array();
         $files[] = $filename.".".$ext;
         $files[] = $filename."_s.".$ext;
-        $files[] = $filename."_b.".$ext;
+        //$files[] = $filename."_b.".$ext;
         
         foreach($files as $filename){
             $filepath = WARE_IMG_DIR.$filename;
@@ -109,7 +109,7 @@ Class AFunc{
         $query = "delete from ware_image where ware_id =".$ware_id;
         $dbconn->Execute($query);    
         
-        return true;
+        return $arr;
     } 
     
     public function getTree($open_ids, $ware_id, $json=false){
@@ -142,7 +142,7 @@ Class AFunc{
         
         foreach($dt as $dr){
             $node = array(
-                "id"=> "w".$dr["id"],
+                "id"=> "c".$catalog_id."_w".$dr["id"],
                 "text"=>$dr["name"],
                 "state"=> array(
                     "opened"=>false,
@@ -150,7 +150,7 @@ Class AFunc{
                     "selected"=>($dr["id"] == $ware_id ? true : false)
                 ),
                 "children"=>false,
-                "li_attr"=>array("data-type"=>"ware","text"=>$dr["name"]),
+                "li_attr"=>array("data-type"=>"ware","text"=>$dr["name"],"data-id"=>$dr["id"]),
                 "a_attr"=>"",
                 "icon"=>$icn_endpoint
             );
@@ -174,7 +174,7 @@ Class AFunc{
                         "disabled"=>false,
                     ),
                     "children"=>($dr["subs"]>0 || $dr["ware"]>0),
-                    "li_attr"=>array("data-type"=>"catalog","data-subs"=>$dr["subs"],"data-ware"=>$dr["ware"],"data-text"=>$dr["name"]),
+                    "li_attr"=>array("data-type"=>"catalog","data-subs"=>$dr["subs"],"data-ware"=>$dr["ware"],"data-text"=>$dr["name"],"data-id"=>$dr["id"]),
                     "a_attr"=>"",
                 );
                 if(in_array($dr["id"],$opened)){

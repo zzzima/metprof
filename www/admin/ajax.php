@@ -43,7 +43,8 @@ function ajaxCase($ajaxaction){
                 $srv["message"]="Невозможно удалить не пустую папку";
                 return $srv;                
             }
-            $afunc->delCatalogById($p["node_id"]);
+            $nodes = $afunc->delCatalogById($p["node_id"]);
+            $srv["data"]["nodes"] = $nodes;
             break;
     }
     return $srv;

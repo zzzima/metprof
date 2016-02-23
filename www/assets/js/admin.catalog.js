@@ -1,8 +1,10 @@
 function getNodeChildrens(node_id, type){
+    var a = getNodeAttrs(node_id);
+    console.log(node_id, a);        
     var childrens;
     var bind = {
         ajaxaction: "get_catalog_treenode",
-        node_id: node_id.replace('c',''),
+        node_id: a.id,
         type: type
     };
     $.ajax({
@@ -43,7 +45,7 @@ function deleteCatalog(node){
     
     var bind = {
         ajaxaction: "delete_catalog",
-        node_id: node.id.replace('c','')
+        node_id: a.id
     };
     $.ajax({
         type: "POST",
@@ -67,7 +69,20 @@ function deleteCatalog(node){
 
 function deleteWare(node){
     var a = getNodeAttrs(node.id);
-
+    var tree = $('#catalog_tree');
+    
+    //console.log(node.parent, tree.jstree("is_loaded", "#"+node.parent), tree.jstree("get_parent", "#"+node.id));
+    var n = [9,16];
+    for(var i=0;i<n.length;i++){
+        console.log(n[i], tree.jstree("is_loaded", "#c"+n[i]));        
+        if(tree.jstree("is_loaded", "#c"+n[i])){
+            //tree.jstree("delete_node", $("#c"+n[i]+"_w1"));
+            tree.jstree("refresh_node", '#c'+n[i]);
+            tree.jstree("select_node", '#c'+n[i], true);            
+        }
+    }
+    
+    /*
     var bind = {
         ajaxaction: "delete_ware",
         node_id: node.id.replace('w','')
@@ -85,20 +100,26 @@ function deleteWare(node){
             if(dt.status === "ok"){                
                 var tree = $('#catalog_tree');
                 tree.jstree("delete_node", $("#"+node.id));
-                tree.jstree("select_node", '#'+node.parent, true);
+                //tree.jstree("select_node", '#'+node.parent, true);
+                for(var c_id in dt.data.nodes){
+                    tree.jstree("select_node", '#'+node.parent, true);
+                }
                 notify("Папка \""+node.text+"\" успешно удалена", "success");
             }
         }
     });
+    */
 }
 
 function getNodeAttrs(node_id){
     var li = $("li#"+node_id+".jstree-node");
     var a = {       
+        id: li.data("id"),
         type: li.data("type"),
         subs: li.data("subs"),
-        ware: li.data("ware") 
-    }
+        ware: li.data("ware"), 
+        text: li.data("text") 
+    };
     return a;
 }
 
