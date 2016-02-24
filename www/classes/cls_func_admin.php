@@ -19,8 +19,40 @@ Class AFunc{
         
         if($p["id"]>0){
             $dr = $this->getCatalogbyId($p["id"],true);
+            $p["parent_id"] = $dr ? $dr["parent_id"] : $p["parent_id"];
         }
+        
+        $path = $this->getTreePath($p["parent_id"], true);    
+        
+        $jsvars["is_saved"] = isset($_SESSION["catalog_saved"]) ? $_SESSION["catalog_saved"] : 0;
+        unset($_SESSION["catalog_saved"]);
+        
+        $smarty->assign(array(
+            "p"=>$p,
+            "dr"=>$dr,
+            "path"=>count($path)>0 ? implode('->',$path) : 'Корневой каталог',
+            "jsvars"=> $jsvars,
+        ));
+        
     }
+    
+    public function handler_saveCatalog($p){
+        global $utils;
+        
+        $id = $p["f_id"];
+        $table = "catalog";
+        $field_prefix = 'f_';
+        $bind = array("f_parent_id","f_name","f_descr","f_isactive");
+        if($id==0){
+            //insert
+            $id = $utils->dbInsert($table,$bind,$p,$field_prefix);
+        }else{
+            //update
+            $utils->dbUpdate($table,$bind,$p,"id",$field_prefix);            
+        }
+        $_SESSION["catalog_saved"] = 1;
+        return $id;
+    }    
     
     /* catalog */
     public function getCatalogById($catalog_id,$light=false){        

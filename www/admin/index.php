@@ -24,6 +24,13 @@ switch($a){
         $jsscripts[] = "js/admin.catalog.edit.js";
         $content_template = 'admin_catalog_edit.tpl'; 
         break;
+    case "savecatalog":
+        $rp = array("f_parent_id"=>0,"f_id"=>0,"f_name"=>"","f_descr"=>"","f_isactive"=>0);
+        $p = $utils->getRequestParams($rp);
+        $id = $afunc->handler_saveCatalog($p);
+        header('Location: /admin/?a=editcatalog&id='.$id);
+        exit();
+        break;    
     case "editware":
         $p = $utils->getRequestParams(array("id"=>0,"parent_id"=>0));
         $jsscripts[] = "js/admin.ware.edit.js";

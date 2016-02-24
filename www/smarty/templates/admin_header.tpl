@@ -7,6 +7,7 @@
 
 <link rel="stylesheet" href="/assets/tparty/bootstrap/css/bootstrap.min.css">
 <link media="all" rel="stylesheet" type="text/css" href="/assets/tparty/pnotify/pnotify.custom.min.css" />
+<link media="all" rel="stylesheet" type="text/css" href="/assets/css/style_admin.css" />
 {section name="css" loop=$stylesheet}
     <link rel='stylesheet' href='/assets/{$stylesheet[css]}' type='text/css'>
 {/section}

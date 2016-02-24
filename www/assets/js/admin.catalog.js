@@ -167,12 +167,12 @@ $(function () {
                   'editcatalog': {
                     'label': "Изменить папку",
                     '_disabled': (a.type=='ware'),
-                    'action': function () { gotoEdit(node.id, {type: a.type}); }
+                    'action': function () { gotoEdit(a.id, {type: a.type}); }
                   },
                   'editware': {
                     'label': "Изменить товар",
                     '_disabled': (a.type=='catalog'),
-                    'action': function () { gotoEdit(node.id, {type: a.type}); }
+                    'action': function () { gotoEdit(a.id, {type: a.type}); }
                   },                              
                   'deletecatalog': {
                     'label': "Удалить папку",

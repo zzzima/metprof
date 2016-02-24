@@ -88,16 +88,6 @@ function GetHashtableWithArrayValue($query,$fkey){
 	return $ht; 
 }
 
-function getSizetypeSize(){
-    $query="
-        select sizetype_id, group_concat(size_id separator ',') as sizes
-        from ref_sizetype_size_tbl
-        group by sizetype_id;
-        ";
-    $ht = $this->GetHashtableWithScalarArrayValue($query,"sizetype_id",array("sizes"));
-    return $ht;
-}
-
 function GetHashtableWithScalarArrayValue($query,$fkey,$sa_keys=array()){
 	global $dbconn;
 	$ht = array();
@@ -119,6 +109,45 @@ function GetHashtableWithScalarArrayValue($query,$fkey,$sa_keys=array()){
 	}
 	return $ht; 
 }
+
+// insert method
+function dbInsert($table,$bind,$p,$field_prefix=''){    
+    global $dbconn;
+    //p - parameters from request
+    //bind - list of fields for insert
+    $fields = array();
+    $values = array();
+    foreach($p as $key=>$val){
+        if(in_array($key,$bind)){
+            $fields[] = strlen($field_prefix)>0 ? str_replace($field_prefix,'',$key) : $key;
+            $values[] = is_numeric($val) ? $val : "'".$val."'";
+        }
+    }
+    $query = "insert into ".$table." (".implode(',',$fields).") values (".$values.")";
+    $dbconn->Execute($query);
+    $id = $dbconn->Insert_ID();    
+    
+    return $id;
+}
+// update method
+function dbUpdate($table,$bind,$p,$id_field,$field_prefix=''){    
+    global $dbconn;
+    //p - parameters from request
+    //bind - list of fields for insert
+    $set = array();
+    foreach($p as $key=>$val){
+        if(in_array($key,$bind)){
+            $fkey = strlen($field_prefix)>0 ? str_replace($field_prefix,'',$key) : $key;
+            $fval = is_numeric($val) ? $val : "'".$val."'";
+            $set[] = $fkey."=".$fval;
+        }
+    }
+    $query = "update ".$table." set ".implode(',',$set)." where ".$id_field."=".$p[$field_prefix.$id_field];
+    $dbconn->Execute($query);
+    
+    return true;
+}
+
 // end database
 
 // file
