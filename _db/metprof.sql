@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : local
 Source Server Version : 50545
 Source Host           : localhost:3306
 Source Database       : metprof
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50545
 File Encoding         : 65001
 
-Date: 2016-02-23 00:03:52
+Date: 2016-02-24 19:06:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,28 +24,29 @@ CREATE TABLE `catalog` (
   `descr` varchar(5000) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `img` varchar(255) DEFAULT NULL,
+  `isactive` tinyint(4) DEFAULT NULL,
+  `creationdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of catalog
 -- ----------------------------
-INSERT INTO `catalog` VALUES ('1', 'AAA', 'aaa', '0', null);
-INSERT INTO `catalog` VALUES ('2', 'BBB', 'bbb', '0', null);
-INSERT INTO `catalog` VALUES ('3', 'CCC', 'ccc', '0', null);
-INSERT INTO `catalog` VALUES ('4', 'DDD', 'ddd', '0', null);
-INSERT INTO `catalog` VALUES ('5', 'A1', 'a1', '1', null);
-INSERT INTO `catalog` VALUES ('6', 'A2', 'a2', '1', null);
-INSERT INTO `catalog` VALUES ('7', 'B1', 'b1', '2', null);
-INSERT INTO `catalog` VALUES ('8', 'B2', 'b2', '2', null);
-INSERT INTO `catalog` VALUES ('9', 'C1', 'c1', '3', null);
-INSERT INTO `catalog` VALUES ('10', 'D1', 'd1', '4', null);
-INSERT INTO `catalog` VALUES ('11', 'D2', 'd2', '4', null);
-INSERT INTO `catalog` VALUES ('12', 'D3', 'd3', '4', null);
-INSERT INTO `catalog` VALUES ('13', 'A11', 'a11', '5', null);
-INSERT INTO `catalog` VALUES ('14', 'B21', 'b21', '8', null);
-INSERT INTO `catalog` VALUES ('15', 'D11', 'd11', '10', null);
-INSERT INTO `catalog` VALUES ('16', 'D31', 'd31', '12', null);
+INSERT INTO `catalog` VALUES ('1', 'AAA', 'aaa', '0', null, '0', '2016-02-24 16:18:59');
+INSERT INTO `catalog` VALUES ('2', 'BBB', 'bbb', '0', null, '1', '2016-02-24 16:18:44');
+INSERT INTO `catalog` VALUES ('3', 'CCC', 'ccc', '0', null, '1', '2016-02-24 16:18:45');
+INSERT INTO `catalog` VALUES ('4', 'DDD', 'ddd', '0', null, '1', '2016-02-24 16:18:44');
+INSERT INTO `catalog` VALUES ('5', 'A1', 'a1', '1', null, '1', '2016-02-24 16:18:46');
+INSERT INTO `catalog` VALUES ('7', 'B1', 'b1', '2', null, '1', '2016-02-24 16:18:46');
+INSERT INTO `catalog` VALUES ('8', 'B2', 'b2', '2', null, '1', '2016-02-24 16:18:47');
+INSERT INTO `catalog` VALUES ('9', 'C1', 'c1', '3', null, '1', '2016-02-24 16:18:48');
+INSERT INTO `catalog` VALUES ('10', 'D1', 'd1', '4', null, '1', '2016-02-24 16:18:48');
+INSERT INTO `catalog` VALUES ('11', 'D2', 'd2', '4', null, '1', '2016-02-24 16:18:48');
+INSERT INTO `catalog` VALUES ('12', 'D3', 'd3', '4', null, '1', '2016-02-24 16:18:49');
+INSERT INTO `catalog` VALUES ('13', 'A11', 'a11', '5', null, '1', '2016-02-24 16:18:49');
+INSERT INTO `catalog` VALUES ('14', 'B21', 'b21', '8', null, '1', '2016-02-24 16:18:49');
+INSERT INTO `catalog` VALUES ('15', 'D11', 'd11', '10', null, '1', '2016-02-24 19:04:16');
+INSERT INTO `catalog` VALUES ('16', 'D31', 'd31', '12', null, '1', '2016-02-24 16:18:51');
 
 -- ----------------------------
 -- Table structure for `login_attempts`
@@ -135,7 +136,7 @@ CREATE TABLE `ware_image` (
   `extension` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`image_id`),
   KEY `idx_ware_id` (`ware_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ware_image
