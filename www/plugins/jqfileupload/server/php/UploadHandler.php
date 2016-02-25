@@ -12,7 +12,6 @@
 
 class UploadHandler
 {
-
     protected $options;
 
     // PHP File Upload error message codes:
@@ -39,13 +38,20 @@ class UploadHandler
     );
 
     protected $image_objects = array();
+    protected $uploadtype = "catalog";
+    protected $item_id = 0;
 
     function __construct($options = null, $initialize = true, $error_messages = null) {
+        $this->uploadtype = isset($_REQUEST["uploadtype"]) ? $_REQUEST["uploadtype"] : $this->uploadtype;
+        $this->item_id = isset($_REQUEST["id"]) ? $_REQUEST["id"] : $this->item_id;
+        
         $this->response = array();
         $this->options = array(
             'script_url' => $this->get_full_url().'/'.basename($this->get_server_var('SCRIPT_NAME')),
-            'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/files/',
-            'upload_url' => $this->get_full_url().'/files/',
+            //'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/files/',
+            //'upload_url' => $this->get_full_url().'/files/',
+            'upload_dir' => $this->uploadtype=="catalog" ? CATALOG_IMG_DIR : WARE_IMG_DIR,
+            'upload_url' => $this->uploadtype=="catalog" ? CATALOG_IMG_URL : WARE_IMG_URL,            
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'param_name' => 'files',
@@ -1052,7 +1058,7 @@ class UploadHandler
     }
 
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error,
-            $index = null, $content_range = null) {
+        $index = null, $content_range = null) {
         $file = new \stdClass();
         $file->name = $this->get_file_name($uploaded_file, $name, $size, $type, $error,
             $index, $content_range);
@@ -1305,6 +1311,7 @@ class UploadHandler
     }
 
     public function post($print_response = true) {
+        global $utils;
         if ($this->get_query_param('_method') === 'DELETE') {
             return $this->delete($print_response);
         }
@@ -1329,6 +1336,9 @@ class UploadHandler
                 // param_name is an array identifier like "files[]",
                 // $upload is a multi-dimensional array:
                 foreach ($upload['tmp_name'] as $index => $value) {
+                    $bind=array("img");
+                    $p = array("id"=>$this->item_id,"img"=>($file_name ? $file_name : $upload['name'][$index]));
+                    $utils->dbUpdate("catalog",$bind,$p,"id",'');
                     $files[] = $this->handle_file_upload(
                         $upload['tmp_name'][$index],
                         $file_name ? $file_name : $upload['name'][$index],

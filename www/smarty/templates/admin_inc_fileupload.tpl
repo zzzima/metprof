@@ -4,7 +4,7 @@
         <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
-            <div class="col-lg-7">
+            <div class="col-lg-12">
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button">
                     <i class="glyphicon glyphicon-plus"></i>
@@ -41,7 +41,7 @@
         <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
     </form>
     <br>
-    <div class="panel panel-default">
+    <!--div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Demo Notes</h3>
         </div>
@@ -55,7 +55,7 @@
                 <li>Built with the <a href="http://getbootstrap.com/">Bootstrap</a> CSS framework and Icons from <a href="http://glyphicons.com/">Glyphicons</a>.</li>
             </ul>
         </div>
-    </div>
+    </div-->
 </div>
 <!-- The blueimp Gallery widget -->
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">

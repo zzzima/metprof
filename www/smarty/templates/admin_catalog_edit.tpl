@@ -42,6 +42,7 @@
             <div class="panel-heading">Фото</div>
                 <div class="panel-body">
                 Загрузка изображений доступна после сохранения основных деталей
+                <input type="hidden" id="f_uploadtype" value="catalog">                
                 {include file="admin_inc_fileupload.tpl"}
                 </div>
             </div>            
