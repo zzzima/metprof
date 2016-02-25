@@ -14,14 +14,22 @@ switch($a){
         $jsscripts[] = "tparty/jstree/jstree.min.js";
         $jsscripts[] = "js/admin.catalog.js";
         
-        $stylesheet[] = "tparty/jstree/themes/default/style.min.css";
+        $stylesheet[] = "/assets/tparty/jstree/themes/default/style.min.css";
         $content_template = 'admin_catalog_tree.tpl'; 
         
         break;
     case "editcatalog":
         $p = $utils->getRequestParams(array("id"=>0,"parent_id"=>0));
         $afunc->handler_editCatalog($p);
-        $jsscripts[] = "js/admin.catalog.edit.js";
+        
+        $jsscripts[] = "js/admin.catalog.edit.js";     
+        
+        $stylesheet[] = "/plugins/jqfileupload/css/style.css";
+        $stylesheet[] = "/assets/tparty/blueimp/css/blueimp-gallery.min.css";
+        $stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload.css";
+        $stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload-ui.css";
+        //$stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload-noscript.css";
+        //$stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload-ui-noscript.css";
         $content_template = 'admin_catalog_edit.tpl'; 
         break;
     case "savecatalog":

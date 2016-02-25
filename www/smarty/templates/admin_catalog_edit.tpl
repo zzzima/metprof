@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">Основные детали</div>
                 <div class="panel-body">
@@ -37,11 +37,12 @@
             </div>            
         </div>
         <div class="clearfix visible-sm visible-xs"></div>
-        <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
+        <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
             <div class="panel panel-primary">
             <div class="panel-heading">Фото</div>
                 <div class="panel-body">
                 Загрузка изображений доступна после сохранения основных деталей
+                {include file="admin_inc_fileupload.tpl"}
                 </div>
             </div>            
         </div>

@@ -9,7 +9,7 @@
 <link media="all" rel="stylesheet" type="text/css" href="/assets/tparty/pnotify/pnotify.custom.min.css" />
 <link media="all" rel="stylesheet" type="text/css" href="/assets/css/style_admin.css" />
 {section name="css" loop=$stylesheet}
-    <link rel='stylesheet' href='/assets/{$stylesheet[css]}' type='text/css'>
+    <link rel='stylesheet' href='{$stylesheet[css]}' type='text/css'>
 {/section}
 
 <script src="/assets/tparty/jquery/jquery-2.2.0.min.js"></script>
@@ -33,11 +33,10 @@
 <script>
 {literal} 
     $(function () {
-        $('[data-toggle="popover"]').popover();
+        //$('[data-toggle="popover"]').popover();
         
         PNotify.prototype.options.styling = "bootstrap3";
         $("#testnotif").click(function(){ 
-            //notificationView("Hey!! It is me!", "danger"); 
             notify("Hey! Look at this!", "notice");
         });
     });    
@@ -63,8 +62,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/admin/?a=catalog"><!--Каталог-->Testcat</a></li>
-        <li><a href="#"><!--Настройки-->Testset</a></li>
+        <li class="active"><a href="/admin/?a=catalog"><!--Каталог-->Catalog</a></li>
+        <li><a href="#"><!--Настройки-->Settings</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="logout.php"><!--Выход-->Logout</a></li>
