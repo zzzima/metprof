@@ -28,8 +28,6 @@ switch($a){
         $stylesheet[] = "/assets/tparty/blueimp/css/blueimp-gallery.min.css";
         $stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload.css";
         $stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload-ui.css";
-        //$stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload-noscript.css";
-        //$stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload-ui-noscript.css";
         $content_template = 'admin_catalog_edit.tpl'; 
         break;
     case "savecatalog":
@@ -41,7 +39,15 @@ switch($a){
         break;    
     case "editware":
         $p = $utils->getRequestParams(array("id"=>0,"parent_id"=>0));
-        $jsscripts[] = "js/admin.ware.edit.js";
+        $afunc->handler_editWare($p);
+        
+        $jsscripts[] = "js/admin.ware.edit.js";     
+        
+        $stylesheet[] = "/plugins/jqfileupload/css/style.css";
+        $stylesheet[] = "/assets/tparty/blueimp/css/blueimp-gallery.min.css";
+        $stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload.css";
+        $stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload-ui.css";
+        
         $content_template = 'admin_ware_edit.tpl'; 
         break;
     case "settings":

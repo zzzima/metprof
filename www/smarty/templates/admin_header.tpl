@@ -33,12 +33,11 @@
 <script>
 {literal} 
     $(function () {
-        //$('[data-toggle="popover"]').popover();
+        $('[data-toggle="popover"]').popover();
         
-        PNotify.prototype.options.styling = "bootstrap3";
-        $("#testnotif").click(function(){ 
+        /*$("#testnotif").click(function(){ 
             notify("Hey! Look at this!", "notice");
-        });
+        });*/
     });    
 {/literal}
 </script>

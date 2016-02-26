@@ -1,5 +1,4 @@
 <?php
-
 // BASE INFO
 define("SITE_URL","http://metprof.loc/");
 define("SITE_DIR","C:/WebServers/home/metprof.loc/www/");

@@ -1,30 +1,3 @@
-function getNodeChildrens(node_id, type){
-    var a = getNodeAttrs(node_id);      
-    var childrens;
-    var bind = {
-        ajaxaction: "get_catalog_treenode",
-        node_id: a.id,
-        type: type
-    };
-    $.ajax({
-        type: "POST",
-        url: "/admin/ajax.php",
-        data: bind,
-        dataType: "json",        
-        async: false,
-        cache: false,
-        success: function (data, textStatus) {
-            var dt = data;  
-            if(dt.status === "error"){ notify(dt.message, "error"); }
-            if(dt.status === "ok"){
-                childrens = dt.data;
-            }
-        }
-    });
-    
-    return childrens;
-}
-
 function gotoEdit(id, op){
     var form = $("#form-go");
     if(id == 0){
@@ -103,31 +76,6 @@ function deleteWare(node){
     });
 }
 
-function getNodeAttrs(node_id){
-    var li = $("li#"+node_id+".jstree-node");
-    var a = {       
-        id: li.data("id"),
-        type: li.data("type"),
-        subs: li.data("subs"),
-        ware: li.data("ware"), 
-        text: li.data("text") 
-    };
-    return a;
-}
-
-function setNodeAttrs(node_id,attr){
-    //console.log(node_id,attr);
-    var li = $("li#"+node_id+".jstree-node");  
-    for (var key in attr) {
-        li.data(key,attr[key]); 
-    }
-}
-
-function NodeIsExists(node_id){
-    var li = $("li#"+node_id+".jstree-node");
-    return (li.length>0)
-}
-
 $(function () { 
     $('#catalog_tree').jstree({ 
         'core' : {
@@ -162,7 +110,7 @@ $(function () {
                   'addware': {
                     'label': "Добавить товар",
                     '_disabled': (+a.subs>0),
-                    'action': function () { gotoEdit(0, {type: a.type, parent_id: node.id}); }
+                    'action': function () { gotoEdit(0, {type: a.type, parent_id: node.parent}); }
                   },                      
                   'editcatalog': {
                     'label': "Изменить папку",

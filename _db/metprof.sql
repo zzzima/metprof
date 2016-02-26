@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50545
 File Encoding         : 65001
 
-Date: 2016-02-24 19:06:28
+Date: 2016-02-26 19:08:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,7 +23,6 @@ CREATE TABLE `catalog` (
   `name` varchar(500) DEFAULT NULL,
   `descr` varchar(5000) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
-  `img` varchar(255) DEFAULT NULL,
   `isactive` tinyint(4) DEFAULT NULL,
   `creationdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -32,21 +31,40 @@ CREATE TABLE `catalog` (
 -- ----------------------------
 -- Records of catalog
 -- ----------------------------
-INSERT INTO `catalog` VALUES ('1', 'AAA', 'aaa', '0', null, '0', '2016-02-24 16:18:59');
-INSERT INTO `catalog` VALUES ('2', 'BBB', 'bbb', '0', null, '1', '2016-02-24 16:18:44');
-INSERT INTO `catalog` VALUES ('3', 'CCC', 'ccc', '0', null, '1', '2016-02-24 16:18:45');
-INSERT INTO `catalog` VALUES ('4', 'DDD', 'ddd', '0', null, '1', '2016-02-24 16:18:44');
-INSERT INTO `catalog` VALUES ('5', 'A1', 'a1', '1', null, '1', '2016-02-24 16:18:46');
-INSERT INTO `catalog` VALUES ('7', 'B1', 'b1', '2', null, '1', '2016-02-24 16:18:46');
-INSERT INTO `catalog` VALUES ('8', 'B2', 'b2', '2', null, '1', '2016-02-24 16:18:47');
-INSERT INTO `catalog` VALUES ('9', 'C1', 'c1', '3', null, '1', '2016-02-24 16:18:48');
-INSERT INTO `catalog` VALUES ('10', 'D1', 'd1', '4', null, '1', '2016-02-24 16:18:48');
-INSERT INTO `catalog` VALUES ('11', 'D2', 'd2', '4', null, '1', '2016-02-24 16:18:48');
-INSERT INTO `catalog` VALUES ('12', 'D3', 'd3', '4', null, '1', '2016-02-24 16:18:49');
-INSERT INTO `catalog` VALUES ('13', 'A11', 'a11', '5', null, '1', '2016-02-24 16:18:49');
-INSERT INTO `catalog` VALUES ('14', 'B21', 'b21', '8', null, '1', '2016-02-24 16:18:49');
-INSERT INTO `catalog` VALUES ('15', 'D11', 'd11', '10', null, '1', '2016-02-24 19:04:16');
-INSERT INTO `catalog` VALUES ('16', 'D31', 'd31', '12', null, '1', '2016-02-24 16:18:51');
+INSERT INTO `catalog` VALUES ('1', 'AAA', 'aaa', '0', '0', '2016-02-24 16:18:59');
+INSERT INTO `catalog` VALUES ('2', 'BBB', 'bbb', '0', '1', '2016-02-24 16:18:44');
+INSERT INTO `catalog` VALUES ('3', 'CCC', 'ccc', '0', '1', '2016-02-24 16:18:45');
+INSERT INTO `catalog` VALUES ('4', 'DDD', 'ddd', '0', '1', '2016-02-24 16:18:44');
+INSERT INTO `catalog` VALUES ('5', 'A1', 'a1', '1', '1', '2016-02-24 16:18:46');
+INSERT INTO `catalog` VALUES ('7', 'B1', 'b1', '2', '1', '2016-02-24 16:18:46');
+INSERT INTO `catalog` VALUES ('8', 'B2', 'b2', '2', '1', '2016-02-24 16:18:47');
+INSERT INTO `catalog` VALUES ('9', 'C1', 'c1', '3', '1', '2016-02-24 16:18:48');
+INSERT INTO `catalog` VALUES ('10', 'D1', 'd1', '4', '1', '2016-02-24 16:18:48');
+INSERT INTO `catalog` VALUES ('11', 'D2', 'd2', '4', '1', '2016-02-24 16:18:48');
+INSERT INTO `catalog` VALUES ('12', 'D3', 'd3', '4', '1', '2016-02-24 16:18:49');
+INSERT INTO `catalog` VALUES ('13', 'A11', 'a1155', '5', '1', '2016-02-26 17:42:45');
+INSERT INTO `catalog` VALUES ('14', 'B21', 'b21', '8', '1', '2016-02-24 16:18:49');
+INSERT INTO `catalog` VALUES ('15', 'D11', 'd11', '10', '1', '2016-02-24 19:04:16');
+INSERT INTO `catalog` VALUES ('16', 'D31', 'd31', '12', '1', '2016-02-24 16:18:51');
+
+-- ----------------------------
+-- Table structure for `catalog_files`
+-- ----------------------------
+DROP TABLE IF EXISTS `catalog_files`;
+CREATE TABLE `catalog_files` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `catalog_id` int(11) NOT NULL,
+  `filename` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_ware_id` (`catalog_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of catalog_files
+-- ----------------------------
+INSERT INTO `catalog_files` VALUES ('3', '7', '800.jpg');
+INSERT INTO `catalog_files` VALUES ('24', '13', '800 (3).jpg');
+INSERT INTO `catalog_files` VALUES ('25', '1', '800.jpg');
 
 -- ----------------------------
 -- Table structure for `login_attempts`
@@ -127,17 +145,17 @@ INSERT INTO `ware_catalog` VALUES ('7', '15');
 INSERT INTO `ware_catalog` VALUES ('7', '9');
 
 -- ----------------------------
--- Table structure for `ware_image`
+-- Table structure for `ware_files`
 -- ----------------------------
-DROP TABLE IF EXISTS `ware_image`;
-CREATE TABLE `ware_image` (
-  `image_id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `ware_files`;
+CREATE TABLE `ware_files` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `ware_id` int(11) NOT NULL,
-  `extension` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`image_id`),
+  `filename` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `idx_ware_id` (`ware_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of ware_image
+-- Records of ware_files
 -- ----------------------------

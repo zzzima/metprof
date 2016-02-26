@@ -18,11 +18,11 @@
                             <p class="bg-info">{$path}</p>
                         </div>                        
                         <div class="form-group">
-                            <label for="cName">Название каталога</label>
+                            <label for="f_name">Название каталога <span class="label label-error"></span></label>
                             <input type="text" class="form-control" id="f_name" name="f_name" placeholder="" value="{$dr.name}">
                         </div>
                         <div class="form-group">
-                            <label for="catalogName">Описание</label>
+                            <label for="f_descr">Описание <span class="label label-error"></span></label>
                             <textarea class="form-control" id="f_descr" name="f_descr" rows="5">{$dr.descr}</textarea>
                         </div>                        
                         <div class="checkbox">
@@ -31,7 +31,7 @@
                                 Активен
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                        <button type="button" id="b_save" class="btn btn-primary">Сохранить</button>
                     </form>      
                 </div>
             </div>            
@@ -41,11 +41,14 @@
             <div class="panel panel-primary">
             <div class="panel-heading">Фото</div>
                 <div class="panel-body">
+                {if $p["id"]==0}
                 Загрузка изображений доступна после сохранения основных деталей
+                {else}
                 <input type="hidden" id="f_uploadtype" value="catalog">                
                 {include file="admin_inc_fileupload.tpl"}
+                {/if}
                 </div>
             </div>            
         </div>
     </div>        
-</div>
+</div>   

@@ -123,7 +123,7 @@ function dbInsert($table,$bind,$p,$field_prefix=''){
             $values[] = is_numeric($val) ? $val : "'".$val."'";
         }
     }
-    $query = "insert into ".$table." (".implode(',',$fields).") values (".$values.")";
+    $query = "insert into ".$table." (".implode(',',$fields).") values (".implode(',',$values).")";
     $dbconn->Execute($query);
     $id = $dbconn->Insert_ID();    
     
@@ -146,6 +146,21 @@ function dbUpdate($table,$bind,$p,$id_field,$field_prefix=''){
     $dbconn->Execute($query);
     
     return true;
+}
+
+function dbDelete($table,$where){
+    global $dbconn;
+    
+    $clause = array();
+    foreach($where as $key=>$val){
+        $val = is_numeric($val) ? $val : "'".$val."'";        
+        $clause[]="and ".$key."=".$val;
+    }
+   
+    $query = "delete from ".$table." where 1=1 ".implode(' ',$clause);
+    $dbconn->Execute($query);
+    
+    return true;        
 }
 
 // end database
