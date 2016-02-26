@@ -18,7 +18,7 @@ function ajaxCase($ajaxaction){
     
     switch($ajaxaction){
         case "get_catalog_treenode":
-            $p = $utils->getRequestParams(array("node_id"=>0,"type"=>"catalog"));
+            $p = $utils->getRequestParams(array("node_id"=>0,"type"=>"catalog","editmode"=>false));
             if($p["node_id"]==0){
                 $srv["status"]="error";
                 $srv["message"]="Передан неверный ID каталога";
@@ -27,7 +27,8 @@ function ajaxCase($ajaxaction){
             if($p["type"]=="ware"){ 
                 $srv["data"] = $afunc->getWareInCatalog($p["node_id"]);
             }else{
-                $srv["data"]=$afunc->dipTree($p["node_id"]);
+                $op = array("editmode"=>$p["editmode"]);
+                $srv["data"]=$afunc->dipTree($p["node_id"],array(),0,$op);
             }
             break;
         case "delete_catalog":

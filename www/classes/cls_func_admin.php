@@ -41,14 +41,14 @@ Class AFunc{
         
         $id = $p["f_id"];
         $table = "catalog";
-        $field_prefix = 'f_';
-        $bind = array("f_parent_id","f_name","f_descr","f_isactive");
+        $fields = "parent_id,name,descr,isactive";
+        $bind = $utils->dbPrepareBind($fields,$p,'f_');
         if($id==0){
             //insert
-            $id = $utils->dbInsert($table,$bind,$p,$field_prefix);
+            $id = $utils->dbInsert($table,$bind,true,array("timestamp"=>"creationdate"));
         }else{
             //update
-            $utils->dbUpdate($table,$bind,$p,"id",$field_prefix);            
+            $utils->dbUpdate($table,$bind,array("id"=>$id));            
         }
         $_SESSION["catalog_saved"] = 1;
         return $id;
@@ -60,14 +60,13 @@ Class AFunc{
         // get ware details
         if($p["id"]>0){
             $dr = $this->getWareById($p["id"],true);
-            $p["parent_id"] = $dr ? $dr["parent_id"] : $p["parent_id"];
-            
             $open_ids = $this->getCatalogByWareId($p["id"]);            
         }else{
             $open_ids = array($p["parent_id"]);
         }
-
-        $json_tree = $this->getTree($open_ids, $p["id"], true);
+        $p["parent_id"] = implode(',',$open_ids);
+        $op = array("editmode"=>true);
+        $json_tree = $this->getTree($open_ids, $p["id"], true, $op);
         $jsvars["json_tree"] = $json_tree;        
         
         $jsvars["is_saved"] = isset($_SESSION["ware_saved"]) ? $_SESSION["ware_saved"] : 0;
@@ -87,16 +86,27 @@ Class AFunc{
         
         $id = $p["f_id"];
         $table = "ware";
-        $field_prefix = 'f_';
-        $bind = array("f_parent_id","f_name","f_descr","f_isactive");
+        $fields = "name,descr,isactive";
+        $bind = $utils->dbPrepareBind($fields,$p,'f_');
         if($id==0){
             //insert
-            $id = $utils->dbInsert($table,$bind,$p,$field_prefix);
+            $id = $utils->dbInsert($table,$bind,true,array("timestamp"=>"creationdate"));
         }else{
             //update
-            $utils->dbUpdate($table,$bind,$p,"id",$field_prefix);            
+            $utils->dbUpdate($table,$bind,array("id"=>$id));            
         }
+        
+        if(!$p["f_parent_id"]==0 && strlen($p["f_parent_id"])>0){
+            $parent_ids = explode(',',$p["f_parent_id"]);
+            $utils->dbDelete("ware_catalog",array("ware_id"=>$id));
+            foreach($parent_ids as $parent_id){
+                $bind = array("ware_id"=>$id,"catalog_id"=>$parent_id);
+                $utils->dbInsert("ware_catalog",$bind,false);                
+            }
+        }
+        
         $_SESSION["ware_saved"] = 1;
+        
         return $id;
     }    
     
@@ -228,13 +238,16 @@ Class AFunc{
         return true;
     } 
     
-    public function getTree($open_ids, $ware_id, $json=false){
+/* tree & nodes */    
+    
+    public function getTree($open_ids, $ware_id, $json=false, $op=array()){
         $opened = array();
         foreach($open_ids as $open_id){
             $path = $this->getTreePath($open_id);
             $opened = array_unique(array_merge($opened, $path));
         }
-        $tree = $this->dipTree(0,$opened,$ware_id);
+        $op["endparent"] = $open_ids;
+        $tree = $this->dipTree(0,$opened,$ware_id,$op);
         
         return $json ? json_encode($tree) : $tree;
     }
@@ -252,7 +265,6 @@ Class AFunc{
         return $path;
     }   
     
-/* tree & nodes */    
     public function getWareInCatalog($catalog_id, $ware_id=0){        
         $icn_endpoint = '/assets/img/icn_ware.png';   
         $dt = $this->getWareByCatalogId($catalog_id);
@@ -276,28 +288,32 @@ Class AFunc{
         return $nodes;
     }
     
-    public function dipTree($parent_id, $opened=array(), $ware_id=0){
+    public function dipTree($parent_id, $opened=array(), $ware_id=0, $op=array()){
+        $op["editmode"] = isset($op["editmode"]) ? $op["editmode"] : false;
+        $op["endparent"] = isset($op["endparent"]) ? $op["endparent"] : array();
         $tree = array();
         
         $dt = $this->getCatalogByParentId($parent_id);   
         if($dt){
             foreach($dt as $dr){
-                $span_name = $dr["name"];
+                $span_name = "<span>".$dr["name"]."</span>";
+                $span_info = $op["editmode"] ? " <span>(папки: ".$dr["subs"].", товары: ".$dr["ware"].")</span>" : "";
                 $node = array(
                     "id"=> "c".$dr["id"],
-                    "text"=>$span_name,
+                    "text"=>$span_name.$span_info,
                     "state"=> array(
                         "opened"=>in_array($dr["id"],$opened),
-                        "disabled"=>false,
+                        "disabled"=>($op["editmode"] ? ($dr["subs"]>0) : false),
+                        "selected"=>($op["editmode"] ? in_array($dr["id"],$op["endparent"]) : false)
                     ),
-                    "children"=>($dr["subs"]>0 || $dr["ware"]>0),
+                    "children"=>($op["editmode"] ? ($dr["subs"]>0) : ($dr["subs"]>0 || $dr["ware"]>0)),
                     "li_attr"=>array("data-type"=>"catalog","data-subs"=>$dr["subs"],"data-ware"=>$dr["ware"],"data-text"=>$dr["name"],"data-id"=>$dr["id"]),
                     "a_attr"=>"",
                 );
                 if(in_array($dr["id"],$opened)){
                     if($dr["subs"]>0){
-                        $node["children"] = $this->dipTree($dr["id"],$opened,$ware_id);
-                    }else if($dr["ware"]>0){
+                        $node["children"] = $this->dipTree($dr["id"],$opened,$ware_id,$op);
+                    }else if($dr["ware"]>0 && !$op["editmode"]){
                         $node["children"] = $this->getWareInCatalog($dr["id"], $ware_id);
                     }
                 }

@@ -4,8 +4,12 @@ Class Utils{
 
 function getRequestParams($pkeys){
     $p = array();
+    $b = array("true"=>true,"false"=>false);
     foreach($pkeys as $key=>$defval){
         $p[$key] = isset($_REQUEST[$key]) ? $_REQUEST[$key] : $defval;
+        if(in_array($p[$key],array_keys($b))){
+            $p[$key] = $b[$p[$key]];
+        }
     }
     return $p;
 }
@@ -111,7 +115,29 @@ function GetHashtableWithScalarArrayValue($query,$fkey,$sa_keys=array()){
 }
 
 // insert method
-function dbInsert($table,$bind,$p,$field_prefix=''){    
+function dbInsert($table,$bind,$last_insert_id,$op=array()){    
+    global $dbconn;
+    //bind - list of fields (key/value) for insert
+    //$last_insert_id: true/false
+    
+    $fields = array();
+    $values = array();
+    foreach($bind as $key=>$val){
+        $fields[] = $key;
+        $values[] = is_numeric($val) ? $val : "'".$val."'";
+    }
+    if(isset($op["timestamp"])){
+        $fields[] = $op["timestamp"];
+        $values[] = 'NOW()';
+    }
+    $query = "insert into ".$table." (".implode(',',$fields).") values (".implode(',',$values).")";
+    $dbconn->Execute($query);
+    $id = $last_insert_id ? $dbconn->Insert_ID() : true;    
+    
+    return $id;
+}
+
+/*function dbInsertExt($table,$bind,$p,$field_prefix='',$last_insert_id=true){    
     global $dbconn;
     //p - parameters from request
     //bind - list of fields for insert
@@ -125,12 +151,37 @@ function dbInsert($table,$bind,$p,$field_prefix=''){
     }
     $query = "insert into ".$table." (".implode(',',$fields).") values (".implode(',',$values).")";
     $dbconn->Execute($query);
-    $id = $dbconn->Insert_ID();    
+    $id = $last_insert_id ? $dbconn->Insert_ID() : true;    
     
     return $id;
-}
+}*/
+
 // update method
-function dbUpdate($table,$bind,$p,$id_field,$field_prefix=''){    
+function dbUpdate($table,$bind,$where){    
+    global $dbconn;
+    //p - parameters from request
+    //bind - list of fields for insert
+    $set = array();
+    foreach($bind as $key=>$val){
+        $fkey = $key;
+        $fval = is_numeric($val) ? $val : "'".$val."'";
+        $set[] = $fkey."=".$fval;
+    }
+    
+    $clause = array();
+    foreach($where as $key=>$val){
+        $val = is_numeric($val) ? $val : "'".$val."'";        
+        $clause[]="and ".$key."=".$val;
+    }
+    
+    $query = "update ".$table." set ".implode(',',$set)." where 1=1 ".implode(' ',$clause);
+    $dbconn->Execute($query);
+    
+    return true;
+}
+
+/*
+function dbUpdateExt($table,$bind,$p,$id_field,$field_prefix=''){    
     global $dbconn;
     //p - parameters from request
     //bind - list of fields for insert
@@ -147,6 +198,7 @@ function dbUpdate($table,$bind,$p,$id_field,$field_prefix=''){
     
     return true;
 }
+*/
 
 function dbDelete($table,$where){
     global $dbconn;
@@ -163,6 +215,14 @@ function dbDelete($table,$where){
     return true;        
 }
 
+function dbPrepareBind($fields,$p,$prefix){
+    $bind = array();
+    $_fields = explode(',',$fields);
+    foreach($_fields as $key){
+        $bind[$key] = $p[$prefix.$key];
+    }
+    return $bind;
+}
 // end database
 
 // file

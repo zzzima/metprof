@@ -1,10 +1,13 @@
 #form-base p {
     padding: 10px;
 }
-#form-base .label.label-error{
+.panel-body .label.label-error{
     font-size: 100%;
     background-color: #f2dede;
     color: #a94442;
     font-weight: normal;
 }
 
+.panel-body #catalog_tree{
+    margin-top: 8px;
+}

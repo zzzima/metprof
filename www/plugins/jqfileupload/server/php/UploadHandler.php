@@ -44,7 +44,7 @@ class UploadHandler
     function __construct($options = null, $initialize = true, $error_messages = null) {
         $this->uploadtype = isset($_REQUEST["uploadtype"]) ? $_REQUEST["uploadtype"] : $this->uploadtype;
         $this->item_id = isset($_REQUEST["id"]) ? $_REQUEST["id"] : $this->item_id;
-        
+
         $this->response = array();
         $this->options = array(
             'script_url' => $this->get_full_url().'/'.basename($this->get_server_var('SCRIPT_NAME')),
@@ -275,7 +275,8 @@ class UploadHandler
             .$this->get_query_separator($this->options['script_url'])
             .$this->get_singular_param_name()
             .'='.rawurlencode($file->name)
-            ."&id=".$this->item_id;
+            ."&id=".$this->item_id
+            ."&uploadtype=".$this->uploadtype;
         $file->deleteType = $this->options['delete_type'];
         if ($file->deleteType !== 'DELETE') {
             $file->deleteUrl .= '&_method=DELETE';
@@ -1074,9 +1075,6 @@ class UploadHandler
 
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error,
         $index = null, $content_range = null) {
-        global $utils;
-        $this->dbUpdate($this->uploadtype,$this->item_id,$name);        
-        
         $file = new \stdClass();
         $file->name = $this->get_file_name($uploaded_file, $name, $size, $type, $error,
             $index, $content_range);
@@ -1124,6 +1122,7 @@ class UploadHandler
                 }
             }
             $this->set_additional_file_properties($file);
+            $this->dbUpdate($this->uploadtype,$this->item_id,$file->name);            
         }
         return $file;
     }
@@ -1418,14 +1417,13 @@ class UploadHandler
     
     private function dbUpdate($uploadtype,$item_id,$file_name){
         global $utils;
-        $bind=array($uploadtype."_id","filename");
-        $p = array($uploadtype."_id"=>$item_id,"filename"=>$file_name);
+
+        $bind = array($uploadtype."_id"=>$item_id,"filename"=>$file_name);
         if($uploadtype=="catalog"){
-            $file_id = $utils->dbInsert("catalog_files",$bind,$p,'');        
+            $utils->dbInsert("catalog_files",$bind,false);        
         }else{
-            $file_id = $utils->dbInsert("ware_files",$bind,$p,'');                    
-        }
-        
+            $utils->dbInsert("ware_files",$bind,false);                    
+        }        
     }
     
     private function dbDelete($uploadtype,$item_id,$filename){

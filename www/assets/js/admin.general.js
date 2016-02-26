@@ -18,13 +18,15 @@ function notify(text, type){
     new PNotify(opts);
 }
 
-function getNodeChildrens(node_id, type){
+function getNodeChildrens(node_id, type, editmode){
+    editmode = (typeof editmode === 'undefined') ? false : editmode;
     var a = getNodeAttrs(node_id);      
     var childrens;
     var bind = {
         ajaxaction: "get_catalog_treenode",
         node_id: a.id,
-        type: type
+        type: type,
+        editmode: editmode
     };
     $.ajax({
         type: "POST",

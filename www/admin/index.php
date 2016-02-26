@@ -41,8 +41,10 @@ switch($a){
         $p = $utils->getRequestParams(array("id"=>0,"parent_id"=>0));
         $afunc->handler_editWare($p);
         
+        $jsscripts[] = "tparty/jstree/jstree.min.js";        
         $jsscripts[] = "js/admin.ware.edit.js";     
         
+        $stylesheet[] = "/assets/tparty/jstree/themes/default/style.min.css";        
         $stylesheet[] = "/plugins/jqfileupload/css/style.css";
         $stylesheet[] = "/assets/tparty/blueimp/css/blueimp-gallery.min.css";
         $stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload.css";
@@ -50,6 +52,13 @@ switch($a){
         
         $content_template = 'admin_ware_edit.tpl'; 
         break;
+    case "saveware":
+        $rp = array("f_parent_id"=>0,"f_id"=>0,"f_name"=>"","f_descr"=>"","f_isactive"=>0);
+        $p = $utils->getRequestParams($rp);
+        $id = $afunc->handler_saveWare($p);
+        header('Location: /admin/?a=editware&id='.$id);
+        exit();
+        break;     
     case "settings":
         break;
     default:

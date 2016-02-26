@@ -10,8 +10,8 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Основные детали</div>
                 <div class="panel-body">
-                    <form role="form" id="form-base" action="/admin/?a=savecatalog" method="POST">     
-                        <!--input type="hidden" name="f_parent_id" id="f_parent_id" value='{$p["parent_id"]}'/-->
+                    <form role="form" id="form-base" action="/admin/?a=saveware" method="POST">     
+                        <input type="hidden" name="f_parent_id" id="f_parent_id" value='{$p["parent_id"]}'>
                         <input type="hidden" name="f_id" id="f_id" value='{$p["id"]}'/>                        
                         <!--div class="form-group">
                             <label>Родительский каталог</label>
@@ -42,6 +42,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Размещение каталоге</div>
                 <div class="panel-body">
+                    <span id="err_parent_id" class="label label-error"></span>
                     <div id="catalog_tree">
                     </div>                    
                 </div>        

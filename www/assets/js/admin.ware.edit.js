@@ -10,6 +10,16 @@ $(function () {
                 go = false;
             }
         });
+        var $selected = $('#catalog_tree').jstree(true).get_selected(false);
+        if($selected.length===0){ 
+            $("#err_parent_id").text("Выберите хотя бы один каталог");
+            go = false; 
+        }
+        else{
+            $selected = $.map($selected, function(e, i){ return (e.replace('c','')); }).join(',');    
+            $("#f_parent_id").val($selected);
+        }
+        
         if(go){ $("#form-base").submit(); }
     });
     
@@ -17,8 +27,11 @@ $(function () {
         var $id = $(this).attr("id");
         $("label[for="+$id+"] span.label-error").text("");
     });
+    $("#catalog_tree").click(function(){
+        $("#err_parent_id").text("");
+    });
     
-$('#catalog_tree').jstree({ 
+    $('#catalog_tree').jstree({ 
         'core' : {
             //'data' : json_tree
             "check_callback" : true,
@@ -29,12 +42,16 @@ $('#catalog_tree').jstree({
                 }else{
                     //var a = getNodeAttrs(node.id);
                     //var type = (+a.ware>0) ? "ware" : "catalog";                    
-                    data = getNodeChildrens(node.id, "catalog");
+                    data = getNodeChildrens(node.id, "catalog", true);
                 }
                 //var data =  node.id === '#' ? json_tree : getNodeChildrens(node.id);
                 data = typeof(data) === 'undefined' ? ['undefined'] : data;
                 callback.call(this, data);
             }
+        },
+        'plugins' : ['checkbox'],
+        'checkbox': {
+            'three_state': false
         }
     });        
 });
