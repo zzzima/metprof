@@ -11,3 +11,18 @@
 .panel-body #catalog_tree{
     margin-top: 8px;
 }
+
+.list-split {
+    background-color: #fff;
+    list-style: outside none none;
+    margin-bottom: 5px;
+    padding: 0px 0px;
+}
+.list-split > li {
+    display: inline-block;
+}
+.list-split > li + li::before {
+    color: #ccc;
+    content: "| ";
+    padding: 0 5px;
+}

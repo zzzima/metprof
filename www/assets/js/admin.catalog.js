@@ -1,7 +1,10 @@
 function gotoEdit(id, op){
     var form = $("#form-go");
     if(id == 0){
-        if(typeof(op.parent_id) !== 'undefined'){ form.find("#parent_id").val(op.parent_id); }
+        if(typeof(op.parent_id) !== 'undefined'){ 
+            op.parent_id = op.parent_id.replace('c','');
+            form.find("#parent_id").val(op.parent_id); 
+        }
     }
     var _action = (op.type=="catalog") ? "/admin/?a=editcatalog&id="+id : "/admin/?a=editware&id="+id;
     form.attr("action",_action);
@@ -77,6 +80,10 @@ function deleteWare(node){
 }
 
 $(function () { 
+    $("#b_add").click(function(){
+        gotoEdit(0, {type: "catalog", parent_id: 0});    
+    });
+    
     $('#catalog_tree').jstree({ 
         'core' : {
             //'data' : json_tree

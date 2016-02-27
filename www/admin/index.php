@@ -6,8 +6,10 @@ $jsscripts = array();
 $stylesheet = array();
 
 switch($a){
-    case "catalog":
-        $open_ids = isset($_REQUEST["open_ids"]) ? explode(',', $_REQUEST("open_ids")) : array();
+    case "catalog":      
+        $open_ids = isset($_REQUEST["open_ids"]) ? $_REQUEST["open_ids"] : array();
+        $open_ids = is_string($open_ids) ? explode(',', $open_ids) : $open_ids;
+        
         $ware_id = isset($_REQUEST["ware_id"]) ? $_REQUEST["ware_id"] : 0;
         $afunc->handler_getCatalogTree($open_ids,$ware_id);
         
@@ -22,9 +24,11 @@ switch($a){
         $p = $utils->getRequestParams(array("id"=>0,"parent_id"=>0));
         $afunc->handler_editCatalog($p);
         
+        $jsscripts[] = "tparty/jstree/jstree.min.js";        
         $jsscripts[] = "js/admin.catalog.edit.js";     
         
-        $stylesheet[] = "/plugins/jqfileupload/css/style.css";
+        $stylesheet[] = "/assets/tparty/jstree/themes/default/style.min.css";        
+        //$stylesheet[] = "/plugins/jqfileupload/css/style.css";
         $stylesheet[] = "/assets/tparty/blueimp/css/blueimp-gallery.min.css";
         $stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload.css";
         $stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload-ui.css";
@@ -45,7 +49,7 @@ switch($a){
         $jsscripts[] = "js/admin.ware.edit.js";     
         
         $stylesheet[] = "/assets/tparty/jstree/themes/default/style.min.css";        
-        $stylesheet[] = "/plugins/jqfileupload/css/style.css";
+        //$stylesheet[] = "/plugins/jqfileupload/css/style.css";
         $stylesheet[] = "/assets/tparty/blueimp/css/blueimp-gallery.min.css";
         $stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload.css";
         $stylesheet[] = "/plugins/jqfileupload/css/jquery.fileupload-ui.css";
@@ -59,7 +63,9 @@ switch($a){
         header('Location: /admin/?a=editware&id='.$id);
         exit();
         break;     
-    case "settings":
+    case "changepassword":     
+        $jsscripts[] = "js/admin.changepassword.js";  
+        $content_template = 'admin_changepassword.tpl';
         break;
     default:
         $content_template = 'admin_home.tpl';        

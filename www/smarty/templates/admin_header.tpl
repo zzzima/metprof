@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Test<!--MetProf - admin--></title>
+<title><!--Test-->МетПроф</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 
@@ -13,6 +13,7 @@
 {/section}
 
 <script src="/assets/tparty/jquery/jquery-2.2.0.min.js"></script>
+<!--script src="/assets/tparty/jquery/jquery-ui.min.js"></script-->
 <script src="/assets/tparty/bootstrap/js/bootstrap.min.js"></script>   
 <script type="text/javascript" src="/assets/tparty/pnotify/pnotify.custom.min.js"></script>
 <script src="/assets/js/admin.general.js"></script>   
@@ -55,17 +56,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-      <a class="navbar-brand" href="#"><!--МетПроф Админ-->Test</a>
+      <a class="navbar-brand" href="#">МетПроф Админ</a>
     </div>
     {if !$nonav}
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/admin/?a=catalog"><!--Каталог-->Catalog</a></li>
-        <li><a href="#"><!--Настройки-->Settings</a></li>
+        <li class="active"><a href="/admin/?a=catalog">Каталог<!--Catalog--></a></li>
+        <li class="dropdown">
+          <a href="/admin/?a=changepassword" class="dropdown-toggle" data-toggle="dropdown">Настройки <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="/admin/?a=changepassword">Сменить пароль</a></li>
+          </ul>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="logout.php"><!--Выход-->Logout</a></li>
+        <li><a href="logout.php">Выход<!--Logout--></a></li>
       </ul>        
     </div><!-- /.navbar-collapse -->
     {/if}

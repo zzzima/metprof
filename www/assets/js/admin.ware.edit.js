@@ -1,6 +1,19 @@
 $(function () { 
     if(is_saved==1){ notify('Информация сохранена','success'); }
-       
+
+    $('#editTab a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+    
+    $("#b_back").click(function(){
+        var _id = $("#f_id").val();
+        var _form = $("<form action='/admin/?a=catalog' method='POST'>");
+        $("#helper").append(_form);
+        _form.append($("<input type='hidden' name='ware_id'>").val(_id));
+        _form.submit();
+    });
+    
     $("#b_save").click(function(){
         var go = true;
         $("#form-base").find("input:text,textarea").each(function(){            

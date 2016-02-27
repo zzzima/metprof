@@ -18,7 +18,7 @@ function ajaxCase($ajaxaction){
     
     switch($ajaxaction){
         case "get_catalog_treenode":
-            $p = $utils->getRequestParams(array("node_id"=>0,"type"=>"catalog","editmode"=>false));
+            $p = $utils->getRequestParams(array("node_id"=>0,"type"=>"catalog","editmode"=>false,"allsubs"=>""));
             if($p["node_id"]==0){
                 $srv["status"]="error";
                 $srv["message"]="Передан неверный ID каталога";
@@ -27,7 +27,7 @@ function ajaxCase($ajaxaction){
             if($p["type"]=="ware"){ 
                 $srv["data"] = $afunc->getWareInCatalog($p["node_id"]);
             }else{
-                $op = array("editmode"=>$p["editmode"]);
+                $op = array("editmode"=>$p["editmode"],"allsubs"=>explode(',',$p["allsubs"]));
                 $srv["data"]=$afunc->dipTree($p["node_id"],array(),0,$op);
             }
             break;
@@ -54,7 +54,14 @@ function ajaxCase($ajaxaction){
                 return $srv;
             }            
             $srv["data"] = $afunc->delWareById($p["node_id"]);            
-            break;            
+            break; 
+        case "check_password":
+            $p=$utils->getRequestParams(array("password"=>0));
+            $valid = $afunc->checkPassword('admin', $p["password"]);
+            if(!$valid){ 
+                $srv["status"]="error";                 
+            }
+            break;
     }
     return $srv;
 }

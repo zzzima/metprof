@@ -21,8 +21,15 @@ Class AFunc{
             $dr = $this->getCatalogById($p["id"],true);
             $p["parent_id"] = $dr ? $dr["parent_id"] : $p["parent_id"];
         }
+        $open_ids = array($p["parent_id"]);
         
-        $path = $this->getTreePath($p["parent_id"], true);    
+        if( $p["id"]==0){ $allsubs==array(); }
+        else{
+            $allsubs = $this->dipTreePathDown($p["id"],array());
+        }
+        $op = array("editmode"=>true,"allsubs"=>$allsubs);
+        $json_tree = $this->getTree($open_ids, 0, true, $op);
+        $jsvars["json_tree"] = $json_tree;          
         
         $jsvars["is_saved"] = isset($_SESSION["catalog_saved"]) ? $_SESSION["catalog_saved"] : 0;
         unset($_SESSION["catalog_saved"]);
@@ -30,7 +37,8 @@ Class AFunc{
         $smarty->assign(array(
             "p"=>$p,
             "dr"=>$dr,
-            "path"=>count($path)>0 ? implode('->',$path) : 'Корневой каталог',
+            "allsubs"=>count($allsubs)==0 ? "" : implode(',',$allsubs),
+            //"path"=>count($path)>0 ? implode('->',$path) : 'Корневой каталог',
             "jsvars"=> $jsvars,
         ));
         
@@ -291,19 +299,21 @@ Class AFunc{
     public function dipTree($parent_id, $opened=array(), $ware_id=0, $op=array()){
         $op["editmode"] = isset($op["editmode"]) ? $op["editmode"] : false;
         $op["endparent"] = isset($op["endparent"]) ? $op["endparent"] : array();
+        $op["allsubs"] = isset($op["allsubs"]) ? $op["allsubs"] : array();
         $tree = array();
         
         $dt = $this->getCatalogByParentId($parent_id);   
         if($dt){
             foreach($dt as $dr){
                 $span_name = "<span>".$dr["name"]."</span>";
-                $span_info = $op["editmode"] ? " <span>(папки: ".$dr["subs"].", товары: ".$dr["ware"].")</span>" : "";
+                $span_info = $op["editmode"] ? "  [".$dr["id"]."] <span>(папки: ".$dr["subs"].", товары: ".$dr["ware"].")</span>" : "";
                 $node = array(
                     "id"=> "c".$dr["id"],
                     "text"=>$span_name.$span_info,
                     "state"=> array(
                         "opened"=>in_array($dr["id"],$opened),
-                        "disabled"=>($op["editmode"] ? ($dr["subs"]>0) : false),
+                        //"disabled"=>($op["editmode"] ? ($dr["subs"]>0) : false),
+                        "disabled"=>($op["editmode"] ? ( $ware_id==0 ? ($dr["ware"]>0 || in_array($dr["id"],$op["allsubs"])) : ($dr["subs"]>0) ) : false),
                         "selected"=>($op["editmode"] ? in_array($dr["id"],$op["endparent"]) : false)
                     ),
                     "children"=>($op["editmode"] ? ($dr["subs"]>0) : ($dr["subs"]>0 || $dr["ware"]>0)),
@@ -322,5 +332,31 @@ Class AFunc{
         }
         return $tree;
     }    
+    
+    public function dipTreePathDown($parent_id,$arr){
+        global $arr;
+        $arr[] = $parent_id;
+        $dt = $this->getCatalogByParentId($parent_id);   ;
+        if($dt){
+            foreach($dt as $dr){
+                $arr = $this->dipTreePathDown($dr["id"],$arr);
+            }
+        }
+        return $arr;
+    }  
+    
+    /* settings */
+    public function checkPassword($username, $password){
+        global $utils;
+        
+        $query= "SELECT * FROM user WHERE username='".$username."' LIMIT 1";
+        $dt = $utils->GetAssocArray($query);  
+        if (count($dt) == 1) {
+            $dr = $dt[0];
+            $password = hash('sha512', $password . $dr["salt"]);
+        }
+        
+        return ($password = $dr["password"]);
+    }
 }
 ?>

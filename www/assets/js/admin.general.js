@@ -28,6 +28,10 @@ function getNodeChildrens(node_id, type, editmode){
         type: type,
         editmode: editmode
     };
+
+    if(editmode && $("#f_allsubs").length>0){        
+        bind["allsubs"]=$("#f_allsubs").val();
+    }
     $.ajax({
         type: "POST",
         url: "/admin/ajax.php",
@@ -71,3 +75,13 @@ function NodeIsExists(node_id){
     var li = $("li#"+node_id+".jstree-node");
     return (li.length>0)
 }
+
+$(function(){
+    $("#expandall").click(function(){
+        $('#catalog_tree').jstree(true).open_all();
+    });
+    
+    $("#collapseall").click(function(){
+        $('#catalog_tree').jstree(true).close_all();
+    });    
+});
