@@ -56,7 +56,8 @@ function ajaxCase($ajaxaction){
             $srv["data"] = $afunc->delWareById($p["node_id"]);            
             break; 
         case "check_password":
-            $p=$utils->getRequestParams(array("password"=>0));
+            var_dump('here');
+            $p=$utils->getRequestParams(array("password"=>""));
             $valid = $afunc->checkPassword('admin', $p["password"]);
             if(!$valid){ 
                 $srv["status"]="error";                 

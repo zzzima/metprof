@@ -9,8 +9,8 @@
                 <span class="btn btn-success fileinput-button">
                     <i class="glyphicon glyphicon-plus"></i>
                     <span>Add files...</span>
-                    <!--input type="file" name="files[]" multiple-->
-                    <input type="file" name="files[]">
+                    <input type="file" name="files[]" multiple>
+                    <!--input type="file" name="files[]"-->
                 </span>
                 <button type="submit" class="btn btn-primary start">
                     <i class="glyphicon glyphicon-upload"></i>
