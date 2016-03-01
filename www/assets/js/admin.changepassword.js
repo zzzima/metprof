@@ -26,6 +26,11 @@ function check_password(){
 }
 
 $(function(){
+    if(typeof is_saved !== 'undefined'){
+        if(is_saved==1){ notify('Пароль успешно сменен','success'); }
+        if(is_saved==0){ notify('При смене пароля возникла ошибка','error'); }
+    }
+    
     $("#b_save").click(function(){
         var _form = $("#form-base");
         var go = true;
@@ -48,7 +53,7 @@ $(function(){
             $("label[for=f_password_new] span.label-error").text("Пароль и подтверждение не совпадают");
             return false;
         }
-        //_form.submit();
+        _form.submit();
     }); 
     
     $("#form-base").find("input:password").click(function(){

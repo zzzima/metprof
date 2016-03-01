@@ -118,6 +118,25 @@ Class AFunc{
         return $id;
     }    
     
+    public function handler_savePassword($p){    
+        global $dbconn, $smarty;
+        $saved = 0;
+        if($this->checkPassword('admin', $p["f_password_old"]) && strlen($p["f_password_new"])>0){
+            $a = $this->hashPassword($p["f_password_new"]);
+            $query = "update user set password='".$a["password_hash"]."' salt='".$a["salt"]."' where username = 'admin'";
+            $dbconn->Execute($query);
+            $saved = 1;
+        }
+        
+        $jsvars = array(
+            "is_saved" => $saved
+        );
+
+        $smarty->assign(array(
+            "jsvars"=> $jsvars,
+        ));
+    }
+    
     /* ware */
     public function getWareById($ware_id){        
         global $utils;
@@ -356,7 +375,17 @@ Class AFunc{
             $password = hash('sha512', $password . $dr["salt"]);
         }
         
-        return ($password = $dr["password"]);
+        return ($password == $dr["password"]);
+    }
+    
+    private function hashPassword($password){
+        $salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
+        $password = hash('sha512', $password . $salt);  
+        
+        return array(
+            "salt" => $salt,
+            "password_hash"=> $password
+        );
     }
 }
 ?>

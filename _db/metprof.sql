@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : local
 Source Server Version : 50545
 Source Host           : localhost:3306
 Source Database       : metprof
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50545
 File Encoding         : 65001
 
-Date: 2016-02-27 23:17:43
+Date: 2016-03-01 18:48:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -58,18 +58,21 @@ CREATE TABLE `catalog_files` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `catalog_id` int(11) NOT NULL,
   `filename` varchar(500) DEFAULT NULL,
+  `is_main` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_ware_id` (`catalog_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of catalog_files
 -- ----------------------------
-INSERT INTO `catalog_files` VALUES ('3', '7', '800.jpg');
-INSERT INTO `catalog_files` VALUES ('25', '1', '800.jpg');
-INSERT INTO `catalog_files` VALUES ('27', '13', '0_8abc3_81986c03_XL.jpg');
-INSERT INTO `catalog_files` VALUES ('28', '17', '1269.jpg');
-INSERT INTO `catalog_files` VALUES ('29', '5', '675674.jpg');
+INSERT INTO `catalog_files` VALUES ('3', '7', '800.jpg', '0');
+INSERT INTO `catalog_files` VALUES ('25', '1', '800.jpg', '0');
+INSERT INTO `catalog_files` VALUES ('27', '13', '0_8abc3_81986c03_XL.jpg', '0');
+INSERT INTO `catalog_files` VALUES ('28', '17', '1269.jpg', '0');
+INSERT INTO `catalog_files` VALUES ('31', '5', '800 (2).jpg', '0');
+INSERT INTO `catalog_files` VALUES ('32', '5', '800 (3).jpg', '0');
+INSERT INTO `catalog_files` VALUES ('52', '5', '800.jpg', '1');
 
 -- ----------------------------
 -- Table structure for `login_attempts`
@@ -158,6 +161,7 @@ CREATE TABLE `ware_files` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ware_id` int(11) NOT NULL,
   `filename` varchar(500) DEFAULT NULL,
+  `is_main` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_ware_id` (`ware_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
@@ -165,21 +169,5 @@ CREATE TABLE `ware_files` (
 -- ----------------------------
 -- Records of ware_files
 -- ----------------------------
-INSERT INTO `ware_files` VALUES ('10', '1', 'image.jpg');
-INSERT INTO `ware_files` VALUES ('11', '3', '1.jpg');
-
--- ----------------------------
--- Table structure for `ware_image`
--- ----------------------------
-DROP TABLE IF EXISTS `ware_image`;
-CREATE TABLE `ware_image` (
-  `image_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ware_id` int(11) NOT NULL,
-  `extension` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`image_id`),
-  KEY `idx_ware_id` (`ware_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of ware_image
--- ----------------------------
+INSERT INTO `ware_files` VALUES ('10', '1', 'image.jpg', '0');
+INSERT INTO `ware_files` VALUES ('11', '3', '1.jpg', '0');

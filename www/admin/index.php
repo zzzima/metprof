@@ -67,6 +67,11 @@ switch($a){
         $jsscripts[] = "js/admin.changepassword.js";  
         $content_template = 'admin_changepassword.tpl';
         break;
+    case "savepassword":     
+        $p=$utils->getRequestParams(array("f_password_old"=>"","f_password_new"=>""));
+        $afunc->handler_savePassword($p);        
+        $content_template = 'admin_changepassword.tpl';
+        break;    
     default:
         $content_template = 'admin_home.tpl';        
         break;

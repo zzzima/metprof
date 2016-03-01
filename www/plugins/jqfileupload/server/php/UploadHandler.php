@@ -40,10 +40,12 @@ class UploadHandler
     protected $image_objects = array();
     protected $uploadtype = "catalog";
     protected $item_id = 0;
+    protected $is_main_file = false;
 
     function __construct($options = null, $initialize = true, $error_messages = null) {
         $this->uploadtype = isset($_REQUEST["uploadtype"]) ? $_REQUEST["uploadtype"] : $this->uploadtype;
         $this->item_id = isset($_REQUEST["id"]) ? $_REQUEST["id"] : $this->item_id;
+        $this->is_main_file = isset($_FILES["mainfiles"]) ? true : false;
 
         $this->response = array();
         $this->options = array(
@@ -54,7 +56,9 @@ class UploadHandler
             'upload_url' => $this->uploadtype=="catalog" ? CATALOG_IMG_URL : WARE_IMG_URL,            
             'user_dirs' => false,
             'mkdir_mode' => 0755,
+            //'param_name' => 'files',
             'param_name' => 'files',
+            'param_name_main' => 'mainfiles',
             // Set the following option to 'POST', if your server does not support
             // DELETE requests. This is a parameter sent to the client:
             'delete_type' => 'DELETE',
@@ -284,6 +288,9 @@ class UploadHandler
         if ($this->options['access_control_allow_credentials']) {
             $file->deleteWithCredentials = true;
         }
+        if($this->is_main_file && !isset($file->is_main_file)){
+            $file->is_main = 1;
+        }
     }
 
     // Fix for overflowing signed 32 bit integers,
@@ -314,7 +321,9 @@ class UploadHandler
         return false;
     }
 
-    protected function get_file_object($file_name) {
+    //protected function get_file_object($file_name) {
+    protected function get_file_object($fileinfo) {        
+        $file_name = $fileinfo["filename"];
         if ($this->is_valid_file_object($file_name)) {
             $file = new \stdClass();
             $file->name = $file_name;
@@ -322,6 +331,7 @@ class UploadHandler
                 $this->get_upload_path($file_name)
             );
             $file->url = $this->get_download_url($file->name);
+            $file->is_main = $fileinfo["is_main"];
             foreach($this->options['image_versions'] as $version => $options) {
                 if (!empty($version)) {
                     if (is_file($this->get_upload_path($file_name, $version))) {
@@ -1316,8 +1326,10 @@ class UploadHandler
         }
         $file_name = $this->get_file_name_param();
         if ($file_name) {
+            $fileinfo = $this->dbGetFileInfo($this->uploadtype,$this->item_id,$file_name);
             $response = array(
-                $this->get_singular_param_name() => $this->get_file_object($file_name)
+                //$this->get_singular_param_name() => $this->get_file_object($file_name)
+                $this->get_singular_param_name() => $this->get_file_object($fileinfo)
             );
         } else {
             $response = array(
@@ -1331,7 +1343,8 @@ class UploadHandler
         if ($this->get_query_param('_method') === 'DELETE') {
             return $this->delete($print_response);
         }
-        $upload = $this->get_upload_data($this->options['param_name']);
+        $param_name = $this->is_main_file ? $this->options['param_name_main'] : $this->options['param_name'];
+        $upload = $this->get_upload_data($param_name);
         // Parse the Content-Disposition header, if available:
         $content_disposition_header = $this->get_server_var('HTTP_CONTENT_DISPOSITION');
         $file_name = $content_disposition_header ?
@@ -1410,15 +1423,27 @@ class UploadHandler
     
     private function dbGetFiles($uploadtype,$item_id){
         global $utils;
-        $query = "select filename from ".$uploadtype."_files where ".$uploadtype."_id=".$item_id;        
-        $arr = $utils->GetIndexHash($query);
-        return $arr ? $arr : array();
+        $query = "select filename, is_main from ".$uploadtype."_files where ".$uploadtype."_id=".$item_id." order by is_main desc";        
+        $dt = $utils->GetAssocArray($query);
+        //$arr = $utils->GetIndexHash($query);
+        //return $arr ? $arr : array();
+        return $dt;
+    }
+    
+    private function dbGetFileInfo($uploadtype,$item_id,$filename){
+        global $utils;
+        $query = "select filename, is_main from ".$uploadtype."_files where ".$uploadtype."_id=".$item_id." and filename='".$filename."'";
+        $dt = $utils->GetAssocArray($query);
+
+        return count($dt)==1 ? $dt[0] : array();
     }
     
     private function dbUpdate($uploadtype,$item_id,$file_name){
         global $utils;
 
         $bind = array($uploadtype."_id"=>$item_id,"filename"=>$file_name);
+        if($this->is_main_file){ $bind["is_main"]=1; }
+        
         if($uploadtype=="catalog"){
             $utils->dbInsert("catalog_files",$bind,false);        
         }else{

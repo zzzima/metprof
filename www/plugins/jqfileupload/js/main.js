@@ -70,10 +70,8 @@ $(function () {
             $(this).fileupload('option', 'done')
                 .call(this, $.Event('done'), {result: result});
         
-            if($("#f_uploadtype").val()==="catalog" && $("#fileupload table tbody.files tr").length>0){
-                $(".fileupload-buttonbar .btn.fileinput-button").hide();
-                $(".fileupload-buttonbar .btn.start").hide();
-                $(".fileupload-buttonbar .btn.cancel").hide();        
+            if($(".label-ismain").length>0){
+                $(".fileupload-buttonbar .btn.fileinput-main").hide();
             }
         });
     }

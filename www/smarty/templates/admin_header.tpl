@@ -56,22 +56,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-      <a class="navbar-brand" href="#">МетПроф Админ</a>
+      <a class="navbar-brand" href="#"><!--МетПроф Админ--></a>
     </div>
     {if !$nonav}
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/admin/?a=catalog">Каталог<!--Catalog--></a></li>
+        <li class="active"><a href="/admin/?a=catalog"><!--Каталог-->A<!--Catalog--></a></li>
         <li class="dropdown">
-          <a href="/admin/?a=changepassword" class="dropdown-toggle" data-toggle="dropdown">Настройки <b class="caret"></b></a>
+          <a href="/admin/?a=changepassword" class="dropdown-toggle" data-toggle="dropdown"><!--Настройки-->B <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="/admin/?a=changepassword">Сменить пароль</a></li>
           </ul>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="logout.php">Выход<!--Logout--></a></li>
+        <li><a href="logout.php"><!--Выход-->C<!--Logout--></a></li>
       </ul>        
     </div><!-- /.navbar-collapse -->
     {/if}

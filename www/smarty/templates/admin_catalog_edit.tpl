@@ -75,7 +75,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="panel panel-primary">
-                                    <div class="panel-heading">Фото</div>
+                                    <div class="panel-heading">Галерея</div>
                                         <div class="panel-body">
                                         {if $p["id"]==0}
                                         Загрузка изображений доступна после сохранения основных деталей
@@ -90,7 +90,7 @@
                         </div>               
                     </div>
                 </div>  
-                    </div>
+            </div>
         </div>
     </div>      
 </div>   

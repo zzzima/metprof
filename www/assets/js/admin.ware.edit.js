@@ -6,6 +6,25 @@ $(function () {
       $(this).tab('show');
     });
     
+    // fileupload listeners
+    $('#fileupload').bind('fileuploaddone', function (e, data) {        
+        if($(".label-ismain").length>0){
+            $(".fileupload-buttonbar .btn.fileinput-main").hide();
+        }      
+    });
+    
+    $('#fileupload').bind('fileuploaddestroyed', function (e, data) {
+        if($(".label-ismain").length==0){
+            $(".fileupload-buttonbar .btn.fileinput-main").show();
+        }
+    });
+
+    $('#fileupload').bind('fileuploadcompleted', function (e, data) {
+        var $tr_main = $(".files tr.row-ismain");
+        $tr_main.insertBefore($(".files tr:first"));        
+    });
+    // end of fileupload listeners
+    
     $("#b_back").click(function(){
         var _id = $("#f_id").val();
         var _form = $("<form action='/admin/?a=catalog' method='POST'>");
