@@ -8,14 +8,14 @@
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button fileinput-main">
                     <i class="glyphicon glyphicon-plus"></i>
-                    <span>Добавить главное фото...</span>
+                    <span>Добавить главное фото</span>
                     <input type="file" name="mainfiles[]">
                     <!--input type="file" name="files[]"-->
                 </span>                
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button fileinput-galery">
                     <i class="glyphicon glyphicon-plus"></i>
-                    <span>Добавить фото...</span>
+                    <span>Добавить фото</span>
                     <input type="file" name="files[]" multiple>
                     <!--input type="file" name="files[]"-->
                 </span>

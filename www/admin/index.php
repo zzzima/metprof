@@ -65,12 +65,20 @@ switch($a){
         break;     
     case "changepassword":     
         $jsscripts[] = "js/admin.changepassword.js";  
+        $afunc->handler_changePassword();
         $content_template = 'admin_changepassword.tpl';
         break;
     case "savepassword":     
         $p=$utils->getRequestParams(array("f_password_old"=>"","f_password_new"=>""));
-        $afunc->handler_savePassword($p);        
-        $content_template = 'admin_changepassword.tpl';
+        
+        $afunc->handler_savePassword($p);
+        
+        if($_SESSION["is_saved"]){ 
+            login('admin', $p["f_password_new"]);   
+        }
+            
+        header('Location: /admin/?a=changepassword');
+        exit();
         break;    
     default:
         $content_template = 'admin_home.tpl';        

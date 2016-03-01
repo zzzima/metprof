@@ -1,7 +1,8 @@
 function gotoEdit(id, op){
     var form = $("#form-go");
     if(id == 0){
-        if(typeof(op.parent_id) !== 'undefined'){ 
+        op.parent_id = (typeof op.parent_id !== 'undefined') ? op.parent_id : 0;
+        if(!$.isNumeric(op.parent_id)){ 
             op.parent_id = op.parent_id.replace('c','');
             form.find("#parent_id").val(op.parent_id); 
         }
@@ -14,7 +15,7 @@ function gotoEdit(id, op){
 function deleteCatalog(node){
     var a = getNodeAttrs(node.id);
     if(a.subs>0 || a.ware>0){
-        notify("Невозможно удалить не пустую папку.", "error");
+        notify("Невозможно удалить не пустую категорию.", "error");
         return false;
     }
     
@@ -40,7 +41,7 @@ function deleteCatalog(node){
                 var a_parent = getNodeAttrs(node.parent);
                 setNodeAttrs(node.parent,{subs: (+a_parent.subs-1)});
 
-                notify("Папка \""+node.text+"\" успешно удалена", "success");
+                notify("Категория \""+node.text+"\" успешно удалена", "success");
             }
         }
     });
@@ -110,35 +111,35 @@ $(function () {
 
                 items = {
                   'addcatalog': {
-                    'label': "Добавить папку",
+                    'label': "Добавить категорию",
                     '_disabled': (+a.ware>0),
                     'action': function () { gotoEdit(0, {type: a.type, parent_id: node.id}); }
                   },
-                  'addware': {
+                  /*'addware': {
                     'label': "Добавить товар",
                     '_disabled': (+a.subs>0),
-                    'action': function () { gotoEdit(0, {type: a.type, parent_id: node.parent}); }
-                  },                      
+                    'action': function () { gotoEdit(0, {type: "ware", parent_id: node.id}); }
+                  },*/                      
                   'editcatalog': {
-                    'label': "Изменить папку",
+                    'label': "Изменить категорию",
                     '_disabled': (a.type=='ware'),
                     'action': function () { gotoEdit(a.id, {type: a.type}); }
                   },
-                  'editware': {
+                  /*'editware': {
                     'label': "Изменить товар",
                     '_disabled': (a.type=='catalog'),
                     'action': function () { gotoEdit(a.id, {type: a.type}); }
-                  },                              
+                  },*/                              
                   'deletecatalog': {
-                    'label': "Удалить папку",
+                    'label': "Удалить категорию",
                     '_disabled': (a.type=='ware'),
                     'action': function () { deleteCatalog(node); }
                   },
-                  'deleteware': {
+                  /*'deleteware': {
                     'label': "Удалить товар",
                     '_disabled': (a.type=='catalog'),
                     'action': function () { deleteWare(node); }
-                  }                      
+                  }*/                      
                 };
 
                 switch (a.type){

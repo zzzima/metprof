@@ -35,13 +35,13 @@ function ajaxCase($ajaxaction){
             $p = $utils->getRequestParams(array("node_id"=>0));
             if($p["node_id"]==0){
                 $srv["status"]="error";
-                $srv["message"]="Передан неверный ID каталога";
+                $srv["message"]="Передан неверный ID категории";
                 return $srv;
             }            
             $dr = $afunc->getCatalogById($p["node_id"]);
             if($dr["subs"]>0 || $dr["ware"]>0){
                 $srv["status"]="error";
-                $srv["message"]="Невозможно удалить не пустую папку";
+                $srv["message"]="Невозможно удалить не пустую категорию";
                 return $srv;                
             }
             $afunc->delCatalogById($p["node_id"]);

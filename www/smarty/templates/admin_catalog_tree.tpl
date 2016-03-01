@@ -7,7 +7,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">    
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <button id="b_add" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Добавить папку</button>                
+                    <button id="b_add" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Добавить категорию</button>                
                     <div class="pull-right">
                         <ol class="list-split">
                           <li><a id="expandall" href="#">Раскрыть все</a></li>

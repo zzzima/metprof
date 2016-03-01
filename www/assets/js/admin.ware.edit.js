@@ -5,14 +5,7 @@ $(function () {
       e.preventDefault();
       $(this).tab('show');
     });
-    
-    // fileupload listeners
-    $('#fileupload').bind('fileuploaddone', function (e, data) {        
-        if($(".label-ismain").length>0){
-            $(".fileupload-buttonbar .btn.fileinput-main").hide();
-        }      
-    });
-    
+
     $('#fileupload').bind('fileuploaddestroyed', function (e, data) {
         if($(".label-ismain").length==0){
             $(".fileupload-buttonbar .btn.fileinput-main").show();
@@ -20,6 +13,9 @@ $(function () {
     });
 
     $('#fileupload').bind('fileuploadcompleted', function (e, data) {
+        if($(".label-ismain").length>0){
+            $(".fileupload-buttonbar .btn.fileinput-main").hide();
+        }         
         var $tr_main = $(".files tr.row-ismain");
         $tr_main.insertBefore($(".files tr:first"));        
     });

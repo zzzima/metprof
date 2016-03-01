@@ -3,7 +3,7 @@ function notify_confirm(){
     var myStack = {"dir1":"down", "dir2":"right", "push":"top", "modal":true};
     new PNotify({
         title: 'Обратите внимание',
-        text: 'Папка будет размещена в корневом каталоге.',
+        text: 'Категория будет размещена в корне каталога.',
         icon: 'glyphicon glyphicon-info-sign',
         type: 'info',
         hide: false,
@@ -45,13 +45,7 @@ $(function () {
       $(this).tab('show');
     });
     
-    // fileupload listeners    
-    $('#fileupload').bind('fileuploaddone', function (e, data) {        
-        if($(".label-ismain").length>0){
-            $(".fileupload-buttonbar .btn.fileinput-main").hide();
-        }      
-    });
-    
+    // fileupload listeners   
     $('#fileupload').bind('fileuploaddestroyed', function (e, data) {
         if($(".label-ismain").length==0){
             $(".fileupload-buttonbar .btn.fileinput-main").show();
@@ -59,6 +53,9 @@ $(function () {
     });
 
     $('#fileupload').bind('fileuploadcompleted', function (e, data) {
+        if($(".label-ismain").length>0){
+            $(".fileupload-buttonbar .btn.fileinput-main").hide();
+        }        
         var $tr_main = $(".files tr.row-ismain");
         $tr_main.insertBefore($(".files tr:first"));        
     });

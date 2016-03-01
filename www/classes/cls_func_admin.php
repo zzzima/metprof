@@ -118,23 +118,31 @@ Class AFunc{
         return $id;
     }    
     
-    public function handler_savePassword($p){    
-        global $dbconn, $smarty;
-        $saved = 0;
-        if($this->checkPassword('admin', $p["f_password_old"]) && strlen($p["f_password_new"])>0){
-            $a = $this->hashPassword($p["f_password_new"]);
-            $query = "update user set password='".$a["password_hash"]."' salt='".$a["salt"]."' where username = 'admin'";
-            $dbconn->Execute($query);
-            $saved = 1;
-        }
+    public function handler_changePassword(){
+        global $smarty;
         
-        $jsvars = array(
-            "is_saved" => $saved
-        );
-
+        if(isset($_SESSION["is_saved"])){ $jsvars["is_saved"]=$_SESSION["is_saved"]; }
+        unset($_SESSION["is_saved"]);    
+        
         $smarty->assign(array(
             "jsvars"=> $jsvars,
-        ));
+        ));        
+    }
+    
+    public function handler_savePassword($p){    
+        global $dbconn;
+
+        if($this->checkPassword('admin', $p["f_password_old"]) && strlen($p["f_password_new"])>0){
+            $a = $this->hashPassword($p["f_password_new"]);
+            $query = "update user 
+                set password='".$a["password_hash"]."', salt='".$a["salt"]."' 
+                where username = 'admin'";
+
+            $dbconn->Execute($query);
+            $_SESSION["is_saved"] = 1;
+        }
+
+        return true;
     }
     
     /* ware */
@@ -193,7 +201,7 @@ Class AFunc{
         $dt_i = $utils->GetAssocArray($query);	
 
         foreach($dt_i as $dr){
-            $utils->delImageFiles("ware",$dr["filename"]);
+            $this->delImageFiles("ware",$dr["filename"]);
         }
 
         $query = "delete from ware_files where ware_id =".$ware_id;
@@ -256,7 +264,7 @@ Class AFunc{
         $dt_i = $utils->GetAssocArray($query);	
 
         foreach($dt_i as $dr){
-            $utils->delImageFiles("catalog",$dr["filename"]);
+            $this->delImageFiles("catalog",$dr["filename"]);
         }
 
         $query = "delete from catalog_files where catalog_id =".$catalog_id;
@@ -325,7 +333,8 @@ Class AFunc{
         if($dt){
             foreach($dt as $dr){
                 $span_name = "<span>".$dr["name"]."</span>";
-                $span_info = $op["editmode"] ? "  [".$dr["id"]."] <span>(папки: ".$dr["subs"].", товары: ".$dr["ware"].")</span>" : "";
+                //$span_info = $op["editmode"] ? "  [".$dr["id"]."] <span>(подкатегории: ".$dr["subs"].", товары: ".$dr["ware"].")</span>" : "";
+                $span_info = $op["editmode"] ? "  [".$dr["id"]."] <span>(подкатегории: ".$dr["subs"].")</span>" : "";
                 $node = array(
                     "id"=> "c".$dr["id"],
                     "text"=>$span_name.$span_info,

@@ -18,7 +18,7 @@ define("EMAIL_DEV","zzma@inbox.ru");
 define("EMAIL_ADMIN","admin@".SITE_DOMEN);
 define("EMAIL_FROM","info@".SITE_DOMEN);
 
-define("DEFAULT_ADMIN_PAGE","/?a=catalog");
+define("DEFAULT_ADMIN_PAGE","/admin/?a=catalog");
    
 define("CATALOG_IMG_DIR",SITE_DIR."_docstore/catalog_files/"); 
 define("WARE_IMG_DIR",SITE_DIR."_docstore/ware_files/");    
