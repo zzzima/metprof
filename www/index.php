@@ -1,19 +1,31 @@
 <?php
 include_once("common.php");
 
-$query= "SELECT * FROM user";			
-$dt = $utils->GetAssocArray($query);		
+$a = $_REQUEST["a"];
+$jsscripts = array();
+$stylesheet = array();
 
-print_r($dt); 
+switch($a){
+    default:
+        $content_template = "user_home.tpl";
+        break;
+}
 
-$password = 'admin';
-$random_salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
-$password = hash('sha512', $password . $random_salt);
+$baseinf = array(
+    "org_name"=>ORG_NAME,
+    "email"=>EMAIL_FROM,
+    "phone1"=>ORG_PHONE1,
+    "phone2"=>ORG_PHONE2,
+    "year"=>date("Y")
+);
 
-$a = 'smarty success';
-$smarty->assign("a",$a);
-$smarty->assign("random_salt",$random_salt);
-$smarty->assign("password",$password);
+$smarty->assign(array(
+    "jsscripts"         =>$jsscripts,
+    "stylesheet"        =>$stylesheet,
+    "baseinf"           =>$baseinf,    
+    "content_template"  =>$content_template
+));
+
 $smarty->display('user_index.tpl');
 
 ?>

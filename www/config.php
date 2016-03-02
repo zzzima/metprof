@@ -3,7 +3,9 @@
 define("SITE_URL","http://metprof.loc/");
 define("SITE_DIR","C:/WebServers/home/metprof.loc/www/");
 define("SITE_DOMEN","metprof.loc");
-define("ORG_NAME","МетПроф");
+define("ORG_NAME","МетАллекс");
+define("ORG_PHONE1","8(8362) 324-669");
+define("ORG_PHONE2","8(8362) 545-075");
 
 $config = array();
 // DB settings
