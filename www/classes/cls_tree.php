@@ -122,9 +122,11 @@ Class cTree{
         global $cCat;
         
         $op["endparent"] = isset($op["endparent"]) ? $op["endparent"] : array();
+        $op["active"] = isset($op["active"]) ? $op["active"] : false;
+        $op["file"] = isset($op["file"]) ? $op["file"] : false;
         $tree = array();
         
-        $dt = $cCat->getCatalogByParentId($parent_id);   
+        $dt = $cCat->getCatalogByParentId($parent_id,$op);   
         if($dt){
             foreach($dt as $dr){
                 $node = array(

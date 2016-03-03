@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : local
+Source Server         : localhost
 Source Server Version : 50545
 Source Host           : localhost:3306
 Source Database       : metprof
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50545
 File Encoding         : 65001
 
-Date: 2016-03-03 19:25:33
+Date: 2016-03-04 00:35:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,23 +28,26 @@ CREATE TABLE `catalog` (
   `creationdate` datetime DEFAULT NULL,
   `updatedate` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of catalog
 -- ----------------------------
-INSERT INTO `catalog` VALUES ('1', 'Р—Р°Р±РѕСЂС‹', '<p>aaaaa</p>', '0', null, '0', '2016-02-24 16:18:59', '2016-03-03 18:42:20');
-INSERT INTO `catalog` VALUES ('2', 'РљРѕР·С‹СЂСЊРєРё', 'bbb', '0', null, '1', '2016-02-24 16:18:44', '2016-03-03 18:46:10');
-INSERT INTO `catalog` VALUES ('3', 'РќР°РІРµСЃС‹', 'ccc', '0', null, '1', '2016-02-24 16:18:45', '2016-03-03 18:47:10');
-INSERT INTO `catalog` VALUES ('4', 'Р‘РµСЃРµРґРєРё', 'ddd', '0', null, '1', '2016-02-24 16:18:44', '2016-03-03 18:47:21');
-INSERT INTO `catalog` VALUES ('5', 'Р—Р°Р±РѕСЂС‹ РёР· РїСЂРѕС„РЅР°СЃС‚РёР»Р°', '<p>a1</p>', '1', null, '1', '2016-02-24 16:18:46', '2016-03-03 18:42:36');
-INSERT INTO `catalog` VALUES ('20', 'Р—Р°Р±РѕСЂС‹ РёР· СЃРµС‚РєРё СЂР°Р±РёС†С‹', 'РІС‹Р°С„С‹РІР°', '1', null, '1', '2016-03-03 18:45:34', '2016-03-03 18:45:34');
-INSERT INTO `catalog` VALUES ('21', 'Р—Р°Р±РѕСЂС‹ СЃРІР°СЂРЅС‹Рµ', 'С‹РІР°С„С‹РІР°', '1', null, '1', '2016-03-03 18:45:48', '2016-03-03 18:45:48');
-INSERT INTO `catalog` VALUES ('22', 'Р РµС€С‘С‚РєРё РЅР° РѕРєРЅР°', 'С„С‹РІР°С‹РІ', '0', null, '0', '2016-03-03 18:47:39', '2016-03-03 18:47:39');
-INSERT INTO `catalog` VALUES ('23', 'Р“Р°СЂР°Р¶РЅС‹Рµ РІРѕСЂРѕС‚Р°', 'СЏС‡СЃРјС‹Р°Рј', '0', null, '1', '2016-03-03 18:47:53', '2016-03-03 18:47:53');
-INSERT INTO `catalog` VALUES ('24', 'РћРіСЂР°РґРєРё', 'РІР°РїРІР°', '0', null, '1', '2016-03-03 18:48:15', '2016-03-03 18:48:15');
-INSERT INTO `catalog` VALUES ('25', 'РЎРєР°РјРµР№РєРё', 'С„С‹Р°РІС„Р°', '0', null, '1', '2016-03-03 18:48:29', '2016-03-03 18:48:34');
-INSERT INTO `catalog` VALUES ('26', 'РўРµРїР»РёС†С‹', 'РІР°РїС‹РІР°Рї', '0', null, '1', '2016-03-03 18:48:55', '2016-03-03 18:48:55');
+INSERT INTO `catalog` VALUES ('1', 'Заборы', '<p>aaaaa</p>', '0', null, '1', '2016-02-24 16:18:59', '2016-03-03 21:13:08');
+INSERT INTO `catalog` VALUES ('2', 'Навесы', 'bbb', '0', null, '1', '2016-02-24 16:18:44', '2016-03-03 21:09:33');
+INSERT INTO `catalog` VALUES ('3', 'Козырьки', 'ccc', '0', null, '1', '2016-02-24 16:18:45', '2016-03-03 21:09:37');
+INSERT INTO `catalog` VALUES ('4', 'Беседки', 'ddd', '0', null, '1', '2016-02-24 16:18:44', '2016-03-03 21:09:41');
+INSERT INTO `catalog` VALUES ('5', 'Решётки на окна', '<p>a1</p>', '0', null, '1', '2016-02-24 16:18:46', '2016-03-03 21:11:28');
+INSERT INTO `catalog` VALUES ('20', 'Гаражные ворота', 'fgdsfg', '0', null, '1', '2016-03-03 18:45:34', '2016-03-03 21:11:29');
+INSERT INTO `catalog` VALUES ('21', 'Теплицы', 'dfgsdfg', '0', null, '1', '2016-03-03 18:45:48', '2016-03-03 21:11:30');
+INSERT INTO `catalog` VALUES ('22', 'Оградки', 'dfgsdfg', '0', null, '1', '2016-03-03 18:47:39', '2016-03-03 21:27:02');
+INSERT INTO `catalog` VALUES ('23', 'Цветники', 'dfg', '0', null, '1', '2016-03-03 18:47:53', '2016-03-03 21:12:34');
+INSERT INTO `catalog` VALUES ('24', 'Кресты', 'fgdfg', '0', null, '1', '2016-03-03 18:48:15', '2016-03-03 21:12:39');
+INSERT INTO `catalog` VALUES ('25', 'Столы', 'dfgsdfg', '0', null, '1', '2016-03-03 18:48:29', '2016-03-03 21:12:44');
+INSERT INTO `catalog` VALUES ('26', 'Скамейки', 'fdgsdfgsd', '0', null, '1', '2016-03-03 18:48:55', '2016-03-03 21:12:55');
+INSERT INTO `catalog` VALUES ('28', 'Заборы из профнастила', null, '1', null, '1', '2016-03-03 21:11:47', '2016-03-03 21:11:57');
+INSERT INTO `catalog` VALUES ('29', 'Заборы из сетки-рабицы', null, '1', null, '1', '2016-03-03 21:11:49', '2016-03-03 21:11:58');
+INSERT INTO `catalog` VALUES ('30', 'Заборы сварные', null, '1', null, '1', '2016-03-03 21:11:52', '2016-03-03 21:12:26');
 
 -- ----------------------------
 -- Table structure for `catalog_files`
@@ -57,23 +60,24 @@ CREATE TABLE `catalog_files` (
   `is_main` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_ware_id` (`catalog_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of catalog_files
 -- ----------------------------
 INSERT INTO `catalog_files` VALUES ('25', '1', '800.jpg', '0');
-INSERT INTO `catalog_files` VALUES ('31', '5', '800 (2).jpg', '0');
-INSERT INTO `catalog_files` VALUES ('32', '5', '800 (3).jpg', '0');
-INSERT INTO `catalog_files` VALUES ('52', '5', '800.jpg', '1');
 INSERT INTO `catalog_files` VALUES ('57', '1', 'cat5.jpg', '1');
-INSERT INTO `catalog_files` VALUES ('58', '22', 'cat3.jpg', '1');
-INSERT INTO `catalog_files` VALUES ('59', '23', 'cat2.jpg', '1');
-INSERT INTO `catalog_files` VALUES ('60', '2', 'cat1.jpg', '1');
-INSERT INTO `catalog_files` VALUES ('61', '3', 'cat1 (1).jpg', '1');
-INSERT INTO `catalog_files` VALUES ('62', '24', 'cat4.jpg', '1');
-INSERT INTO `catalog_files` VALUES ('63', '25', 'cat1 (2).jpg', '1');
-INSERT INTO `catalog_files` VALUES ('64', '26', 'cat6.jpg', '1');
+INSERT INTO `catalog_files` VALUES ('65', '2', '33rvvAY5OdpxHMPsYBksFHIQwYBLdkn7.jpg', '1');
+INSERT INTO `catalog_files` VALUES ('66', '3', '5koz.jpg', '1');
+INSERT INTO `catalog_files` VALUES ('67', '4', 'besedka-dlya-dachi.jpg', '1');
+INSERT INTO `catalog_files` VALUES ('69', '20', 'cat2 (1).jpg', '1');
+INSERT INTO `catalog_files` VALUES ('70', '21', 'cat6 (1).jpg', '1');
+INSERT INTO `catalog_files` VALUES ('71', '22', 'cat4 (1).jpg', '1');
+INSERT INTO `catalog_files` VALUES ('74', '25', '1_21.jpg', '1');
+INSERT INTO `catalog_files` VALUES ('75', '5', 'cat3.jpg', '1');
+INSERT INTO `catalog_files` VALUES ('77', '23', 'cf6f8e0940b001f29b6199d544pf--dlya-doma-interera-kovanyj-tsvetnik.jpg', '1');
+INSERT INTO `catalog_files` VALUES ('78', '26', '121.jpg', '1');
+INSERT INTO `catalog_files` VALUES ('79', '24', 'cat1.jpg', '1');
 
 -- ----------------------------
 -- Table structure for `login_attempts`

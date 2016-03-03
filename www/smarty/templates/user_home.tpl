@@ -67,11 +67,9 @@
                 <div class="row flow-offset-1">
                     {section name=i loop=$dt_c}
                         {include file="user_cat_si.tpl" dr=$dt_c[i]}
-                        {if $smarty.section.i.iteration % 3 == 0}<br class="clearBoth">{/if}
                     {/section}  
-                    
+                    <!--
                     <div class="col-sm-6 col-md-4">
-                        <!-- Product-->
                         <a href="#" class="product wow fadeInUp"><img alt=" " src="assets/images/cat1.jpg">
                             <div class="product__body bg-secondary">
                                 <h5>Двери</h5>
@@ -82,9 +80,7 @@
                             </div>
                         </a>
                     </div>
-                    <!-- END Product -->
                     <div class="col-sm-6 col-md-4">
-                        <!-- Product-->
                         <a href="#" data-wow-delay=".2s" class="product wow fadeInUp"><img alt=" " src="assets/images/cat2.jpg">
 
                             <div class="product__body bg-secondary">
@@ -95,10 +91,8 @@
                                 </span>
                             </div>
                         </a>
-                        <!-- END Product -->
                     </div>
                     <div class="col-sm-6 col-md-4">
-                        <!-- Product-->
                         <a href="#" data-wow-delay=".4s" class="product wow fadeInUp"><img alt=" " src="assets/images/cat3.jpg">
 
                             <div class="product__body bg-secondary">
@@ -109,10 +103,8 @@
                                 </span>
                             </div>
                         </a>
-                        <!-- END Product -->
                     </div>
                     <div class="col-sm-6 col-md-4">
-                        <!-- Product-->
                         <a href="#" data-wow-delay=".6s" class="product wow fadeInUp"><img alt=" " src="assets/images/cat4.jpg">
 
                             <div class="product__body bg-secondary">
@@ -123,7 +115,6 @@
                                 </span>
                             </div>
                         </a>
-                        <!-- END Product -->
                     </div>
                     <div class="col-sm-6 col-md-4">
                         <a href="#" data-wow-delay=".8s" class="product wow fadeInUp"><img alt=" " src="assets/images/cat5.jpg">
@@ -138,7 +129,6 @@
                         </a>
                     </div>
                     <div class="col-sm-6 col-md-4">
-                        <!-- Product-->
                         <a href="#" data-wow-delay="1s" class="product wow fadeInUp"><img alt=" " src="assets/images/cat6.jpg">
 
                             <div class="product__body bg-secondary">
@@ -150,7 +140,7 @@
                             </div>
                         </a>
                     </div>
-                    <!-- END Product -->
+                    -->
                 </div>
             </div>                    
                 </section>

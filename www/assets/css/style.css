@@ -990,7 +990,8 @@ html body .page .primary-color {
 }
 .product img {
   width: 100%;
-  height: auto;
+  /*height: auto;*/
+  height: 270px;
   transition: 1s all ease-out;
   -webkit-transform-origin: 100% 0;
   transform-origin: 100% 0;
@@ -1470,7 +1471,8 @@ a.icon-primary:hover {
   display: block;
   color: #1e2a32;
   background: transparent;
-  padding: 14px 30px 15px;
+  /*padding: 14px 30px 15px;*/
+  padding: 8px 30px 9px;
 }
 .rd-navbar-static .rd-navbar-dropdown > li + li > a, .rd-navbar-fullwidth .rd-navbar-dropdown > li + li > a {
   border-top: 1px solid #D9D9D9;
@@ -1571,7 +1573,8 @@ a.icon-primary:hover {
 }
 @media (min-width: 768px) {
   .rd-navbar-static:not(.rd-navbar--is-stuck) .rd-navbar-brand .brand-name, .rd-navbar-fullwidth:not(.rd-navbar--is-stuck) .rd-navbar-brand .brand-name {
-    font-size: 80px;
+    /*font-size: 80px;*/
+    font-size: 70px;
   }
 }
 

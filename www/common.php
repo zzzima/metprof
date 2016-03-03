@@ -1,4 +1,4 @@
-<?
+<?php
 include_once "config.php";
 
 //Smarty
@@ -23,8 +23,8 @@ include_once SITE_DIR."/adodb/adodb.inc.php";
 $dbconn = ADONewConnection($config["dbtype"]);
 $dbconn ->debug=false;
 $dbh = $dbconn->Connect($config["dbhost"], $config["dbuname"], $config["dbpass"], $config["dbname"]);
-mysql_query("set names cp1251");
-mysql_query("SET lc_time_names = 'ru_RU'");
+//mysql_query("set names cp1251");
+//mysql_query("SET lc_time_names = 'ru_RU'");
 
 
 GLOBAL $ADODB_FETCH_MODE, $ADODB_CACHE_DIR;

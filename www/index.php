@@ -9,10 +9,16 @@ $stylesheet = array();
 //get menu tree
 $open_ids = isset($_REQUEST["open_ids"]) ? $_REQUEST["open_ids"] : array();
 $open_ids = is_string($open_ids) ? explode(',', $open_ids) : $open_ids;
+$op = array("active"=>true,"file"=>true);
 $ufunc->handler_getCatalogTree($open_ids,$ware_id);
 
 switch($a){
+    case "catalog":
+        $ufunc->handle_CatalogView();
+        break;
     default:
+        $dt_c = $cCat->getCatalogByParentId(0,$op);
+        $smarty->assign("dt_c",$dt_c);
         $content_template = "user_home.tpl";
         break;
 }
