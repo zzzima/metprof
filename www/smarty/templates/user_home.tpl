@@ -65,6 +65,11 @@
                     
                <div class="container">
                 <div class="row flow-offset-1">
+                    {section name=i loop=$dt_c}
+                        {include file="user_cat_si.tpl" dr=$dt_c[i]}
+                        {if $smarty.section.i.iteration % 3 == 0}<br class="clearBoth">{/if}
+                    {/section}  
+                    
                     <div class="col-sm-6 col-md-4">
                         <!-- Product-->
                         <a href="#" class="product wow fadeInUp"><img alt=" " src="assets/images/cat1.jpg">

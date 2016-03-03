@@ -137,25 +137,6 @@ function dbInsert($table,$bind,$last_insert_id,$op=array()){
     return $id;
 }
 
-/*function dbInsertExt($table,$bind,$p,$field_prefix='',$last_insert_id=true){    
-    global $dbconn;
-    //p - parameters from request
-    //bind - list of fields for insert
-    $fields = array();
-    $values = array();
-    foreach($p as $key=>$val){
-        if(in_array($key,$bind)){
-            $fields[] = strlen($field_prefix)>0 ? str_replace($field_prefix,'',$key) : $key;
-            $values[] = is_numeric($val) ? $val : "'".$val."'";
-        }
-    }
-    $query = "insert into ".$table." (".implode(',',$fields).") values (".implode(',',$values).")";
-    $dbconn->Execute($query);
-    $id = $last_insert_id ? $dbconn->Insert_ID() : true;    
-    
-    return $id;
-}*/
-
 // update method
 function dbUpdate($table,$bind,$where){    
     global $dbconn;
@@ -179,26 +160,6 @@ function dbUpdate($table,$bind,$where){
     
     return true;
 }
-
-/*
-function dbUpdateExt($table,$bind,$p,$id_field,$field_prefix=''){    
-    global $dbconn;
-    //p - parameters from request
-    //bind - list of fields for insert
-    $set = array();
-    foreach($p as $key=>$val){
-        if(in_array($key,$bind)){
-            $fkey = strlen($field_prefix)>0 ? str_replace($field_prefix,'',$key) : $key;
-            $fval = is_numeric($val) ? $val : "'".$val."'";
-            $set[] = $fkey."=".$fval;
-        }
-    }
-    $query = "update ".$table." set ".implode(',',$set)." where ".$id_field."=".$p[$field_prefix.$id_field];
-    $dbconn->Execute($query);
-    
-    return true;
-}
-*/
 
 function dbDelete($table,$where){
     global $dbconn;
@@ -230,6 +191,19 @@ function delFile($filepath){
     if (file_exists($filepath)){
         unlink($filepath);
     }		
+}
+
+public function delImageFiles($filetype,$filename){
+    global $utils;
+    $filedir = $filetype=="ware" ? WARE_IMG_DIR : CATALOG_IMG_DIR;
+    $files = array();
+    $files[] = $filedir.$filename;
+    $files[] = $filedir."thumbnail/".$filename;
+    $files[] = $filedir."small/".$filename;
+
+    foreach($files as $filepath){
+        $this->delFile($filepath);
+    }    
 }
 // end file
 

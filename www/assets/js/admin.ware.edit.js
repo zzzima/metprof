@@ -1,3 +1,9 @@
+tinymce.init({ 
+    selector:'textarea',
+    menubar: false,
+    content_style: "p {font-size: 14px;}"    
+});
+
 $(function () { 
     if(is_saved==1){ notify('Информация сохранена','success'); }
 

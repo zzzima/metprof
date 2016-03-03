@@ -97,22 +97,42 @@
                                 <li class="active">
                                     <a href="index.html">Главная</a>
                                 </li>
-                                <li class="rd-navbar--has-dropdown rd-navbar-submenu">
+                                <li>
                                     <a class="rd-navbar-submenu-link" href="aboutus.html"><button class="rd-navbar-submenu-toggle"></button>О нас</a>
                                 </li>
                                 <li class="rd-navbar--has-megamenu rd-navbar-submenu">
                                     <a class="rd-navbar-submenu-link" href="products.html"><button class="rd-navbar-submenu-toggle"></button>Продукция</a>
 
                                     <!-- RD Navbar Megamenu -->
-                                    <ul class="rd-navbar-megamenu">
-                                        <li>
+                                    <ul class="rd-navbar-dropdown">
+                                        {section name="itm" loop=$menu}
+                                            <li class="{if $menu[itm].subs>0}rd-navbar--has-dropdown rd-navbar-submenu{/if}">
+                                            {if $menu[itm].subs>0}
+                                                <a class="rd-navbar-submenu-link" href="#"><button class="rd-navbar-submenu-toggle"></button>{$menu[itm].text}</a>
+                                                <ul class="rd-navbar-dropdown">
+                                                {section name="sitm" loop=$menu[itm].children}
+                                                    <li><a href="#"></a>{$menu[itm].children[sitm].text}</li>    
+                                                {/section}
+                                                </ul>
+                                            {else}
+                                                <a href="#">{$menu[itm].text}</a>
+                                            {/if}
+                                            </li>
+                                        {/section}
+                                        
+                                        <!--li>
                                             <a href="#">Металлические двери</a>
                                         </li>                                                 
                                         <li>
                                             <a href="#">Ворота</a>
                                         </li>                                              
-                                        <li>
-                                            <a href="#">Заборы, ограждения</a>
+                                        <li class="rd-navbar--has-dropdown rd-navbar-submenu">
+                                            <a class="rd-navbar-submenu-link" href="#"><button class="rd-navbar-submenu-toggle"></button>Заборы</a>
+                                            <ul class="rd-navbar-dropdown">
+                                                <li><a href="#">Заборы из профнастила</a></li>
+                                                <li><a href="#">Заборы из сетки рабицы</a></li>
+                                                <li><a href="#">Заборы сварные</a></li>
+                                            </ul>
                                         </li>
                                         <li>
                                             <a href="#">Решётки</a>
@@ -122,7 +142,7 @@
                                         </li>
                                         <li>
                                             <a href="#">Теплицы</a>
-                                        </li>                                          
+                                        </li-->                                          
                                     </ul>
                                     <!-- END RD Navbar Megamenu -->
                                 </li>

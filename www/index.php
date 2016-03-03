@@ -1,9 +1,15 @@
 <?php
-include_once("common.php");
+
+include_once("user.inc.php");
 
 $a = $_REQUEST["a"];
 $jsscripts = array();
 $stylesheet = array();
+
+//get menu tree
+$open_ids = isset($_REQUEST["open_ids"]) ? $_REQUEST["open_ids"] : array();
+$open_ids = is_string($open_ids) ? explode(',', $open_ids) : $open_ids;
+$ufunc->handler_getCatalogTree($open_ids,$ware_id);
 
 switch($a){
     default:
@@ -11,6 +17,7 @@ switch($a){
         break;
 }
 
+//get site base info 
 $baseinf = array(
     "org_name"=>ORG_NAME,
     "email"=>EMAIL_FROM,

@@ -1,3 +1,9 @@
+/*tinymce.init({ 
+    selector:'textarea',
+    menubar: false,
+    content_style: "p {font-size: 14px;}"
+});*/
+
 function notify_confirm(){
     PNotify.prototype.options.styling = "bootstrap3";
     var myStack = {"dir1":"down", "dir2":"right", "push":"top", "modal":true};

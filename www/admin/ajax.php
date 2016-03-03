@@ -12,8 +12,8 @@ function ajaxAction(){
     echo json_encode($srv);
 }
 
-function ajaxCase($ajaxaction){
-    global $utils, $afunc;
+function ajaxCase($ajaxaction){    
+    global $utils, $afunc, $cCat, $cWare, $cTree;
     $srv = array("status"=>"ok","message"=>"","data"=>array());
     
     switch($ajaxaction){
@@ -25,10 +25,10 @@ function ajaxCase($ajaxaction){
                 return $srv;
             }
             if($p["type"]=="ware"){ 
-                $srv["data"] = $afunc->getWareInCatalog($p["node_id"]);
+                $srv["data"] = $cTree->getWareNode($p["node_id"]);
             }else{
                 $op = array("editmode"=>$p["editmode"],"allsubs"=>explode(',',$p["allsubs"]));
-                $srv["data"]=$afunc->dipTree($p["node_id"],array(),0,$op);
+                $srv["data"]=$cTree->dipTree($p["node_id"],array(),0,$op);
             }
             break;
         case "delete_catalog":
@@ -38,13 +38,13 @@ function ajaxCase($ajaxaction){
                 $srv["message"]="Передан неверный ID категории";
                 return $srv;
             }            
-            $dr = $afunc->getCatalogById($p["node_id"]);
+            $dr = $cCat->getCatalogById($p["node_id"]);
             if($dr["subs"]>0 || $dr["ware"]>0){
                 $srv["status"]="error";
                 $srv["message"]="Невозможно удалить не пустую категорию";
                 return $srv;                
             }
-            $afunc->delCatalogById($p["node_id"]);
+            $cCat->delCatalogById($p["node_id"]);
             break;
         case "delete_ware":
             $p = $utils->getRequestParams(array("node_id"=>0));
@@ -53,7 +53,7 @@ function ajaxCase($ajaxaction){
                 $srv["message"]="Передан неверный ID товара";
                 return $srv;
             }            
-            $srv["data"] = $afunc->delWareById($p["node_id"]);            
+            $srv["data"] = $cWare->delWareById($p["node_id"]);            
             break; 
         case "check_password":
             $p=$utils->getRequestParams(array("password"=>""));
