@@ -12,9 +12,13 @@ $open_ids = is_string($open_ids) ? explode(',', $open_ids) : $open_ids;
 $op = array("active"=>true,"file"=>true);
 $ufunc->handler_getCatalogTree($open_ids,$ware_id);
 
-switch($a){
+switch($a){    
     case "catalog":
-        $ufunc->handle_CatalogView();
+        $p = $utils->getRequestParams(array("id"=>0));
+        $ufunc->handle_CatalogView($p);
+        break;
+    case "aboutus":
+        $content_template = "user_aboutus.tpl";
         break;
     default:
         $dt_c = $cCat->getCatalogByParentId(0,$op);

@@ -7,12 +7,15 @@ Class cCat{
         if($light){
             $query = "select * from catalog where id in (".implode(',',$ids).")";
         }else{
-            $query = "SELECT c.*, count(c_sub.id) as subs, count(wc.ware_id) as ware
+            $query = "SELECT c.*, count(c_sub.id) as subs, count(wc.ware_id) as ware,
+                CONCAT('".CATALOG_IMG_URL."/small/',cf.filename) as filepath
                 from catalog c
                 left join ware_catalog wc on c.id = wc.catalog_id
                 left join catalog c_sub on c.id = c_sub.parent_id
+                left join catalog_files cf on c.id = cf.catalog_id and cf.is_main=1                
                 where c.id in (".implode(',',$ids).")
-                group by c.id";
+                group by c.id
+                order by c.seqno";
         }
         $dt = $utils->GetAssocArray($query);
         
@@ -33,7 +36,9 @@ Class cCat{
             ".($op["file"] ? "left join catalog_files cf on c.id = cf.catalog_id and cf.is_main=1" : "")."
             where c.parent_id = ".$parent_id."
             ".($op["active"] ? " and c.isactive=1" : "")."
-            group by c.id";
+            group by c.id
+            order by c.seqno
+            ";
         $dt = $utils->GetAssocArray($query);
         
         if($op["file"] && $dt){
@@ -74,5 +79,22 @@ Class cCat{
         return true;
     } 
     
+    public function getCatalogFiles($catalog_id){
+        global $utils;
+        
+        $query = "select * from catalog_files where catalog_id=".$catalog_id." and is_main<>1 order by creationdate desc";
+        $arr = $utils->GetIndexHash($query);
+        
+        return $arr;
+    }
+    
+    public function getFeaturedCatalogs($num){
+        global $utils;
+        $query = "select c.* from c.catalog  where c.parent_id = 0 order by RAND() limit ".$num;
+        
+        $dt_rc = $utils->GetAssocArray($query);	
+        
+        return $dt_rc;
+    }    
 }
 ?>

@@ -1,9 +1,3 @@
-/*tinymce.init({ 
-    selector:'textarea',
-    menubar: false,
-    content_style: "p {font-size: 14px;}"
-});*/
-
 function notify_confirm(){
     PNotify.prototype.options.styling = "bootstrap3";
     var myStack = {"dir1":"down", "dir2":"right", "push":"top", "modal":true};
@@ -45,6 +39,12 @@ function notify_confirm(){
 
 $(function () { 
     if(is_saved==1){ notify('Информация сохранена','success'); }
+    
+    $("textarea").tinymce({
+        selector:'textarea',
+        menubar: false,
+        content_style: "p {font-size: 14px;}"        
+    });
 
     $('#editTab a').click(function (e) {
       e.preventDefault();

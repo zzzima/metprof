@@ -24,7 +24,8 @@ switch($a){
         $p = $utils->getRequestParams(array("id"=>0,"parent_id"=>0));
         $afunc->handler_editCatalog($p);
         
-        $jsscripts[] = "tparty/tinymce/tinymce.min.js";        
+        $jsscripts[] = "tparty/tinymce/tinymce.min.js";   
+        $jsscripts[] = "tparty/tinymce/jquery.tinymce.min.js";           
         $jsscripts[] = "tparty/jstree/jstree.min.js";        
         $jsscripts[] = "js/admin.catalog.edit.js";     
         
@@ -47,6 +48,7 @@ switch($a){
         $afunc->handler_editWare($p);
         
         $jsscripts[] = "tparty/tinymce/tinymce.min.js";        
+        $jsscripts[] = "tparty/tinymce/jquery.tinymce.min.js";           
         $jsscripts[] = "tparty/jstree/jstree.min.js";        
         $jsscripts[] = "js/admin.ware.edit.js";     
         

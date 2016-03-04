@@ -66,81 +66,8 @@
                <div class="container">
                 <div class="row flow-offset-1">
                     {section name=i loop=$dt_c}
-                        {include file="user_cat_si.tpl" dr=$dt_c[i]}
+                        {include file="user_inc_cat.tpl" dr=$dt_c[i]}
                     {/section}  
-                    <!--
-                    <div class="col-sm-6 col-md-4">
-                        <a href="#" class="product wow fadeInUp"><img alt=" " src="assets/images/cat1.jpg">
-                            <div class="product__body bg-secondary">
-                                <h5>Двери</h5>
-                                <span class="product__body-angle">
-                                    <span class="product__body-angle__top"></span>
-                                    <span class="product__body-angle__bottom"></span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <a href="#" data-wow-delay=".2s" class="product wow fadeInUp"><img alt=" " src="assets/images/cat2.jpg">
-
-                            <div class="product__body bg-secondary">
-                                <h5>Ворота</h5>
-                                <span class="product__body-angle">
-                                    <span class="product__body-angle__top"></span>
-                                    <span class="product__body-angle__bottom"></span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <a href="#" data-wow-delay=".4s" class="product wow fadeInUp"><img alt=" " src="assets/images/cat3.jpg">
-
-                            <div class="product__body bg-secondary">
-                                <h5>Решётки</h5>
-                                <span class="product__body-angle">
-                                    <span class="product__body-angle__top"></span>
-                                    <span class="product__body-angle__bottom"></span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <a href="#" data-wow-delay=".6s" class="product wow fadeInUp"><img alt=" " src="assets/images/cat4.jpg">
-
-                            <div class="product__body bg-secondary">
-                                <h5>Оградки</h5>
-                                <span class="product__body-angle">
-                                    <span class="product__body-angle__top"></span>
-                                    <span class="product__body-angle__bottom"></span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <a href="#" data-wow-delay=".8s" class="product wow fadeInUp"><img alt=" " src="assets/images/cat5.jpg">
-
-                            <div class="product__body bg-secondary">
-                                <h5>Заборы</h5>
-                                <span class="product__body-angle">
-                                    <span class="product__body-angle__top"></span>
-                                    <span class="product__body-angle__bottom"></span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <a href="#" data-wow-delay="1s" class="product wow fadeInUp"><img alt=" " src="assets/images/cat6.jpg">
-
-                            <div class="product__body bg-secondary">
-                                <h5>Теплицы</h5>
-                                <span class="product__body-angle">
-                                    <span class="product__body-angle__top"></span>
-                                    <span class="product__body-angle__bottom"></span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                    -->
                 </div>
             </div>                    
                 </section>
@@ -235,48 +162,5 @@
         </section>
         <!-- END Our quality products include-->  
         <!-- Our Contacts -->
-        <section class="well-sm bg-secondary">
-            <div id="contacts" class="container">
-                <h1>Контакты</h1>
-
-                <div class="row flow-offset-1">
-                    <div class="col-sm-6 col-md-3 wow fadeInUp">
-                        <h5>
-                            Адрес
-                        </h5>
-                        <p class="primary-color">
-                            Республика Марий Эл<br />
-                            г. Йошкар-Ола<br />
-                            ул. Строителей, д.94
-                        </p>
-                    </div>
-                    <div data-wow-delay=".2s" class="col-sm-6 col-md-3 wow fadeInUp">
-                        <h5>
-                            Телефоны
-                        </h5>
-                        <p>
-                            <a href="callto:#" class="heading-6 primary-color">{$baseinf["phone1"]}</a><br />
-                            <a href="callto:#" class="heading-6 primary-color">{$baseinf["phone2"]}</a><br />
-                        </p>
-                    </div>
-                    <div data-wow-delay=".4s" class="col-sm-6 col-md-3 wow fadeInUp">
-                        <h5>
-                            Электронная почта
-                        </h5>
-                        <p>
-                            <a href='mailto:{$baseinf["email"]}'>{$baseinf["email"]}</a>
-                        </p>
-                    </div>
-                    <div data-wow-delay=".6s" class="col-sm-6 col-md-3 wow fadeInUp">
-                        <h5>
-                            Социальные сети
-                        </h5>
-                        <p>
-                            <a href="#"><span class="fa-odnoklassniki"></span>&nbsp;&nbsp;Одноклассники</a><br />
-                            <a href="#"><span class="fa-vk"></span>&nbsp;вКонтакте</a>
-                        </p>                     
-                    </div>
-                </div>
-            </div>
-        </section>
+        {include file="user_inc_contacts.tpl"}
         <!-- END Our Contacts-->  

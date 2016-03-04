@@ -98,10 +98,10 @@
                                     <a href="index.html">Главная</a>
                                 </li>
                                 <li>
-                                    <a class="rd-navbar-submenu-link" href="aboutus.html"><button class="rd-navbar-submenu-toggle"></button>О нас</a>
+                                    <a class="rd-navbar-submenu-link" href="/?a=aboutus"><button class="rd-navbar-submenu-toggle"></button>О нас</a>
                                 </li>
                                 <li class="rd-navbar--has-megamenu rd-navbar-submenu">
-                                    <a class="rd-navbar-submenu-link" href="products.html"><button class="rd-navbar-submenu-toggle"></button>Продукция</a>
+                                    <a class="rd-navbar-submenu-link" href="/?a=catalog"><button class="rd-navbar-submenu-toggle"></button>Продукция</a>
 
                                     <!-- RD Navbar Megamenu -->
                                     <ul class="rd-navbar-dropdown">
@@ -118,36 +118,12 @@
                                                 <a href="#">{$menu[itm].text}</a>
                                             {/if}
                                             </li>
-                                        {/section}
-                                        
-                                        <!--li>
-                                            <a href="#">Металлические двери</a>
-                                        </li>                                                 
-                                        <li>
-                                            <a href="#">Ворота</a>
-                                        </li>                                              
-                                        <li class="rd-navbar--has-dropdown rd-navbar-submenu">
-                                            <a class="rd-navbar-submenu-link" href="#"><button class="rd-navbar-submenu-toggle"></button>Заборы</a>
-                                            <ul class="rd-navbar-dropdown">
-                                                <li><a href="#">Заборы из профнастила</a></li>
-                                                <li><a href="#">Заборы из сетки рабицы</a></li>
-                                                <li><a href="#">Заборы сварные</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Решётки</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Оградки</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Теплицы</a>
-                                        </li-->                                          
+                                        {/section}                                        
                                     </ul>
                                     <!-- END RD Navbar Megamenu -->
                                 </li>
                                 <li>
-                                    <a href="contacts.html">Контакты</a>
+                                    <a href="/?a=contacts">Контакты</a>
                                 </li>
                             </ul>
                             <!-- END RD Navbar Nav -->
