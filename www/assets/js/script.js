@@ -80,12 +80,12 @@ include('assets/tparty/jquery/jquery.easing.1.3.js');
  * @description  Enables RD Mailform Plugin
  */
 ;
-/*
+
 (function ($) {
     var o = $('.rd-mailform');
     if (o.length > 0) {
-        include('assets/js/mailform/jquery.form.min.js');
-        include('assets/js/mailform/jquery.rd-mailform.min.js');
+        include('/assets/tparty/mailform/jquery.form.min.js');
+        include('/assets/tparty/mailform/jquery.rd-mailform.min.js');
 
         $(document).ready(function () {
             var o = $('.rd-mailform');
@@ -95,19 +95,19 @@ include('assets/tparty/jquery/jquery.easing.1.3.js');
                     validator: {
                         'constraints': {
                             '@LettersOnly': {
-                                message: 'Please use letters only!'
+                                message: 'Допускаются только буквы'
                             },
                             '@NumbersOnly': {
-                                message: 'Please use numbers only!'
+                                message: 'Допускаются только цифры'
                             },
                             '@NotEmpty': {
-                                message: 'Field should not be empty!'
+                                message: 'Заполните поле'
                             },
                             '@Email': {
-                                message: 'Enter valid e-mail address!'
+                                message: 'Введите корректный адрес email'
                             },
                             '@Phone': {
-                                message: 'Enter valid phone number!'
+                                message: 'Введите корректный номер телефона'
                             },
                             '@Date': {
                                 message: 'Use MM/DD/YYYY format!'
@@ -118,19 +118,19 @@ include('assets/tparty/jquery/jquery.easing.1.3.js');
                         }
                     }
                 }, {
-                    'MF000': 'Sent',
-                    'MF001': 'Recipients are not set!',
-                    'MF002': 'Form will not work locally!',
-                    'MF003': 'Please, define email field in your form!',
-                    'MF004': 'Please, define type of your form!',
-                    'MF254': 'Something went wrong with PHPMailer!',
-                    'MF255': 'There was an error submitting the form!'
+                    'MF000': 'Отправлено',
+                    'MF001': 'Получатели не заданы',
+                    'MF002': 'Отправка не работает локально',
+                    'MF003': 'Пожалуйста введите email',
+                    'MF004': 'Определитие тип запроса',
+                    'MF254': 'Ошибка отправки PHPMailer!',
+                    'MF255': 'Возникли ошибки при отправке формы'
                 });
             }
         });
     }
 })(jQuery); 
-*/
+
 /* Google Map
  ========================================================*/
 ;

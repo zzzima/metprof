@@ -103,7 +103,10 @@ $(function () {
                 callback.call(this, data);
             }
         },
-        'plugins' : ['contextmenu'],
+        'plugins' : ['contextmenu', "dnd"],
+        'dnd':{
+            
+        },
         'contextmenu': {
             'items': function(node){
                 var items = {};                

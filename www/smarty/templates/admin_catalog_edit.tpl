@@ -32,8 +32,7 @@
                                                     <input type="text" class="form-control" id="f_name" name="f_name" placeholder="" value="{$dr.name}">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="f_descr">Описание <span class="label label-error"></span></label>
-                                                    <textarea class="form-control" id="f_descr" name="f_descr" rows="7">{$dr.descr}</textarea>
+                                                    <textarea class="form-control" id="f_descr" name="f_descr" rows="10">{$dr.descr}</textarea>
                                                 </div>                        
                                                 <div class="checkbox">
                                                     <label>

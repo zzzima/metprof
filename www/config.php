@@ -19,6 +19,8 @@ $config["dbname"] = "metprof";
 define("EMAIL_DEV","zzma@inbox.ru");
 define("EMAIL_ADMIN","admin@".SITE_DOMEN);
 define("EMAIL_FROM","info@".SITE_DOMEN);
+define("EMAIL_FROM_NAME",ORG_NAME);
+define("EMAIL_SUBJECT","Запрос с сайта ".SITE_DOMEN);
 
 define("DEFAULT_ADMIN_PAGE","/admin/?a=catalog");
    

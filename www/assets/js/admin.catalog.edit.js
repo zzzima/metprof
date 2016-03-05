@@ -93,8 +93,9 @@ $(function () {
         $("#f_parent_id").val($selected);
         
         if(go){ 
-            if(root){ notify_confirm(); }
-            else { $("#form-base").submit(); }
+            //if(root){ notify_confirm(); }
+            //else { $("#form-base").submit(); }
+            $("#form-base").submit();
         }
     });
     

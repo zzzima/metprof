@@ -136,11 +136,11 @@ Class cTree{
                     "opened"=>in_array($dr["id"],$opened),
                     "selected"=>($op["editmode"] ? in_array($dr["id"],$op["endparent"]) : false)
                 );
-                if(in_array($dr["id"],$opened)){
+                //if(in_array($dr["id"],$opened)){
                     if($dr["subs"]>0){
                         $node["children"] = $this->dipTreeMenu($dr["id"],$opened,$ware_id,$op);
                     }
-                }
+                //}
                 $tree[] = $node;
             }
         }

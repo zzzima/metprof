@@ -7,7 +7,7 @@ function getRequestParams($pkeys){
     $b = array("true"=>true,"false"=>false);
     foreach($pkeys as $key=>$defval){
         $p[$key] = isset($_REQUEST[$key]) ? $_REQUEST[$key] : $defval;
-        if(in_array($p[$key],array_keys($b))){
+        if(!is_numeric($p[$key]) && in_array($p[$key],array_keys($b))){
             $p[$key] = $b[$p[$key]];
         }
     }
@@ -23,6 +23,7 @@ function GetAssocArray($query)
 {
 	global $dbconn;
 	$dt = array();
+        //var_dump($query);
 	$rs = $dbconn->Execute($query);
 
 	if ($rs->RowCount() > 0)
@@ -206,6 +207,22 @@ public function delImageFiles($filetype,$filename){
     }    
 }
 // end file
+// 
+// mail
+function sendMail($to,$subject,$body){
+    
+    $headers   = array();
+    $headers[] = "MIME-Version: 1.0";
+    $headers[] = "Content-type: text/html; charset=windows-1251";
+    $headers[] = "From: ".EMAIL_FROM_NAME." <".EMAIL_FROM.">";
+    $headers[] = "Reply-To: ".$config["email_notification_caption"]." <".EMAIL_FROM.">";
+    $headers[] = "Subject: ".$subject;
+    $headers[] = "X-Mailer: PHP/".phpversion();
+
+    mail($to, $subject, $body, implode("\r\n", $headers));    
+}
+
+//end mail
 
 //end class
 }

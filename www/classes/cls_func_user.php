@@ -15,8 +15,8 @@ Class UFunc{
     } 
  
     public function handle_CatalogView($p){
-        global $cCat;
-        
+        global $smarty, $cCat;
+
         $id = $p["id"];
         if($id>0){
             $dr_c = $cCat->getCatalogById($id);            
@@ -24,20 +24,44 @@ Class UFunc{
         
         if($id>0 && $dr_c["subs"]==0){
             $dt_f = $cCat->getCatalogFiles($id);
+            
+            $smarty->assign("fancybox",true);
+            $content_template = "user_catalog_view_single.tpl";
         }else{
             $op = array("active"=>true,"file"=>true);
             $dt_c = $cCat->getCatalogByParentId($id,$op);
-            if($id == 0) {
+            //if($id == 0) {
                 $dt_rc = $cCat->getFeaturedCatalogs(3);
-            }
+            //}
+                
+            $content_template = "user_catalog_view_all.tpl";
         }
         
         $smarty->assign(array(
+            "p"=>$p,
+            "dr_c"=>$dr_c,
             "dt_c"=>$dt_c,
             "dt_f"=>isset($dt_f) ? $dt_f : array(),
             "dt_rc"=>isset($dt_rc) ? $dt_rc : array(),
+            "cat_file_url"=>CATALOG_IMG_URL
         ));
         
+        return array(
+            "content_template"=>$content_template
+        );
+    }
+    
+    public function sendRequest($p){
+        global $utils,$smarty;
+        
+        if(strlen($p["email"])==0) { return 'MF003'; }
+
+        $smarty->assign("p",$p);
+        $to = $p["email"];
+        $body = $smarty->fetch("_email_template.tpl");        
+        $utils->sendMail($to,EMAIL_SUBJECT,$body);
+        
+        return 'MF000';
     }
 }
 ?>

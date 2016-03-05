@@ -83,16 +83,24 @@ Class cCat{
         global $utils;
         
         $query = "select * from catalog_files where catalog_id=".$catalog_id." and is_main<>1 order by creationdate desc";
-        $arr = $utils->GetIndexHash($query);
+        $dt = $utils->GetAssocArray($query);	
         
-        return $arr;
+        return $dt;
     }
     
     public function getFeaturedCatalogs($num){
         global $utils;
-        $query = "select c.* from c.catalog  where c.parent_id = 0 order by RAND() limit ".$num;
+        $query = "select c.* from catalog c where c.parent_id = 0 order by RAND() limit ".$num;
         
         $dt_rc = $utils->GetAssocArray($query);	
+        
+        /*foreach($dt_rc as &$dr){
+            $s = substr($dr["descr"],0,300);
+            $ws = strripos($s,' ');
+            //$s = substr($s,0,-(strlen($s)-$ws));
+            var_dump($s,$ws,strlen($s),"<br>");
+            $dr["descr_cut"]=$s;
+        }*/
         
         return $dt_rc;
     }    

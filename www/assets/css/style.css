@@ -2524,7 +2524,8 @@ a.icon-primary:hover {
   margin-top: 0;
 }
 .rd-mailform label input, .rd-mailform label select {
-  height: 41px;
+  /*height: 41px;*/
+  height: 50px;
 }
 .rd-mailform label input, .rd-mailform label select, .rd-mailform label textarea {
   display: block;
@@ -2599,7 +2600,7 @@ a.icon-primary:hover {
   cursor: text;
   position: absolute;
   left: 0;
-  top: 0;
+  top: 6px;
   padding: 2.5px 18px;
   font-weight: inherit;
   font-size: 15px;
@@ -2631,7 +2632,7 @@ a.icon-primary:hover {
   left: 0;
   color: #f00;
   font-weight: inherit;
-  font-size: 9px;
+  font-size: /*9px;*/12px;
   line-height: 16px;
   opacity: 0;
   visibility: hidden;
@@ -3096,4 +3097,34 @@ a.icon-primary:hover {
 }
 .footer, .footer h1, .footer h2, .footer h3, .footer h4, .footer h5, .footer h6, .footer .heading-1, .footer .heading-2, .footer .heading-3, .footer .heading-4, .footer .heading-5, .footer .heading-6 {
   color: #777;
+}
+
+/*========================================================
+                     ADDITIOANL STYLES
+=========================================================*/
+.x-featured{
+    height: 145px;
+    overflow-y: hidden;
+}
+
+ul.x-nav-sub-dropdown{
+    left: -100% !important;
+    top: -3% !important;
+    position: absolute !important;
+}
+
+.x-product-descr img.media-object{
+    width: 250px;
+}
+
+.thumbnail .x-mosaic{
+    max-height: 115px;    
+    overflow: hidden;
+}
+.thumbnail img{
+    width: auto;
+}
+
+.contact-info dl.x-item{
+    margin-top: 20px;
 }

@@ -2,7 +2,7 @@
 
 include_once("user.inc.php");
 
-$a = $_REQUEST["a"];
+$a = isset($_REQUEST["a"]) ? $_REQUEST["a"] : "home";
 $jsscripts = array();
 $stylesheet = array();
 
@@ -12,14 +12,21 @@ $open_ids = is_string($open_ids) ? explode(',', $open_ids) : $open_ids;
 $op = array("active"=>true,"file"=>true);
 $ufunc->handler_getCatalogTree($open_ids,$ware_id);
 
+$jsscripts = array();
 switch($a){    
     case "catalog":
         $p = $utils->getRequestParams(array("id"=>0));
-        $ufunc->handle_CatalogView($p);
+        $res = $ufunc->handle_CatalogView($p);
+        $content_template = $res["content_template"];
+        $jsscripts[] = "js/user.catalog.view.js";  
         break;
     case "aboutus":
         $content_template = "user_aboutus.tpl";
         break;
+    case "contacts":
+        $content_template = "user_contacts.tpl";
+        break;
+    case "home":
     default:
         $dt_c = $cCat->getCatalogByParentId(0,$op);
         $smarty->assign("dt_c",$dt_c);
@@ -37,6 +44,7 @@ $baseinf = array(
 );
 
 $smarty->assign(array(
+    "a"=>$a,
     "jsscripts"         =>$jsscripts,
     "stylesheet"        =>$stylesheet,
     "baseinf"           =>$baseinf,    
