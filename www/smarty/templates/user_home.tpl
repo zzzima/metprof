@@ -3,7 +3,7 @@
                     <div class="camera_container">
                         <div class="camera_wrap" id="camera">
                             <!--div data-src="assets/images/page-1_img01.jpg"-->
-                            <div data-src="assets/images/slider01.jpg">
+                            <div data-src="assets/images/slider012.jpg">
                                 <div class="camera_caption fadeIn">
                                     <div class="container text-center text-md-right">
                                         <div class="row">
@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                             <!--div data-src="assets/images/page-1_img02.jpg"-->
-                            <div data-src="assets/images/slider02.jpg">
+                            <div data-src="assets/images/slider021.jpg">
                                 <div class="camera_caption fadeIn">
                                     <div class="container text-center text-md-right">
                                         <div class="row">

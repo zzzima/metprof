@@ -35,12 +35,14 @@ function deleteCatalog(node){
             if(dt.status === "error"){ notify(dt.message, "error"); }
             if(dt.status === "ok"){                
                 var tree = $('#catalog_tree');
+
                 tree.jstree("delete_node", $("#"+node.id));
                 tree.jstree("select_node", '#'+node.parent, true);
                 
-                var a_parent = getNodeAttrs(node.parent);
-                setNodeAttrs(node.parent,{subs: (+a_parent.subs-1)});
-
+                if(node.parent!='#'){
+                    var a_parent = getNodeAttrs(node.parent);                
+                    setNodeAttrs(node.parent,{subs: (+a_parent.subs-1)});
+                }
                 notify("Категория \""+node.text+"\" успешно удалена", "success");
             }
         }
@@ -88,7 +90,7 @@ $(function () {
     $('#catalog_tree').jstree({ 
         'core' : {
             //'data' : json_tree
-            "check_callback" : true,
+            //"check_callback" : true,
             'data': function (node, callback) {               
                 var data;
                 if(node.id === '#'){
@@ -101,12 +103,15 @@ $(function () {
                 //var data =  node.id === '#' ? json_tree : getNodeChildrens(node.id);
                 data = typeof(data) === 'undefined' ? ['undefined'] : data;
                 callback.call(this, data);
+            },
+            'check_callback' : function (op, node, par, pos, more) {
+                if(more && more.dnd) {
+                    return more.pos !== "i" && par.id == node.parent;
+                }
+                return true;
             }
         },
         'plugins' : ['contextmenu', "dnd"],
-        'dnd':{
-            
-        },
         'contextmenu': {
             'items': function(node){
                 var items = {};                
@@ -162,5 +167,32 @@ $(function () {
             }
         }                
     });    
+    
+    $(document).on('dnd_stop.vakata', function (e, data) {
+        var cur = $(data.data.obj[0]);
+        var prev = $('#catalog_tree').jstree().get_prev_dom(cur);
+        //console.log(cur.data("id"),prev.data("id"));
+            
+        var bind = {
+            ajaxaction: "reorder_catalog_treenode",
+            id: cur.data("id"),
+            after_id: prev.data("id")
+        };
+        $.ajax({
+            type: "POST",
+            url: "/admin/ajax.php",
+            data: bind,
+            dataType: "json",
+            async: false,
+            cache: false,
+            success: function (data, textStatus) {
+                var dt = data;   
+                if(dt.status === "error"){ notify(dt.message, "error"); }
+                if(dt.status === "ok"){                
+                    notify("Порядок сортировки изменен", "success");
+                }
+            }
+        });
+    });
 });
 

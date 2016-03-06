@@ -31,6 +31,15 @@ function ajaxCase($ajaxaction){
                 $srv["data"]=$cTree->dipTree($p["node_id"],array(),0,$op);
             }
             break;
+        case "reorder_catalog_treenode":
+            $p = $utils->getRequestParams(array("id"=>0,"after_id"=>0));
+            if($p["id"]==0 || $p["after_id"]==0){
+                $srv["status"]="error";
+                $srv["message"]="Передан неизвестный ID текущего каталога";
+                return $srv;
+            }
+            $cCat->reorderCatalog($p["id"],$p["after_id"]);
+            break;
         case "delete_catalog":
             $p = $utils->getRequestParams(array("node_id"=>0));
             if($p["node_id"]==0){

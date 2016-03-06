@@ -93,16 +93,43 @@ Class cCat{
         $query = "select c.* from catalog c where c.parent_id = 0 order by RAND() limit ".$num;
         
         $dt_rc = $utils->GetAssocArray($query);	
-        
-        /*foreach($dt_rc as &$dr){
-            $s = substr($dr["descr"],0,300);
-            $ws = strripos($s,' ');
-            //$s = substr($s,0,-(strlen($s)-$ws));
-            var_dump($s,$ws,strlen($s),"<br>");
-            $dr["descr_cut"]=$s;
-        }*/
-        
+
         return $dt_rc;
-    }    
+    }  
+    
+    public function reorderCatalog($id,$after_id){
+        global $dbconn;
+            
+        //var_dump($id,$after_id);
+        $c = $this->getCatalogById($id,true);
+        $af = $this->getCatalogById($after_id,true);
+        
+        if($c["seqno"]<$af["seqno"]){
+            $query = "update catalog set seqno=seqno-1
+                    where seqno<=".$af["seqno"]."
+                    and seqno>=".$c["seqno"]."
+                    and id<>".$id."
+                    and parent_id=".$c["parent_id"];  
+
+            $dbconn->Execute($query);   
+            
+            $query = "update catalog set seqno=".$af["seqno"]." where id=".$id;
+            $dbconn->Execute($query);  
+        }
+        
+        if($c["seqno"]>$af["seqno"]){
+            $query = "update catalog set seqno=seqno+1
+                    where seqno>=".($af["seqno"]+1)."
+                    and seqno<=".$c["seqno"]." 
+                    and id<>".$id."
+                    and parent_id=".$c["parent_id"];        
+            $dbconn->Execute($query); 
+            
+            $query = "update catalog set seqno=".($af["seqno"]+1)." where id=".$id;
+            $dbconn->Execute($query);              
+        }        
+        
+        return true;
+    }
 }
 ?>

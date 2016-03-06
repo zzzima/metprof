@@ -50,9 +50,12 @@ Class AFunc{
         $id = $p["f_id"];
         $table = "catalog";
         $fields = "parent_id,name,descr,isactive";
-        $bind = $utils->dbPrepareBind($fields,$p,'f_');
+        $bind = $utils->dbPrepareBind($fields,$p,'f_');        
         if($id==0){
             //insert
+            $query = "select max(seqno) from catalog where parent_id=".$bind["parent_id"];
+            $max_seqno = $utils->GetSingleValue($query);
+            $bind["seqno"]=$max_seqno+1;
             $id = $utils->dbInsert($table,$bind,true,array("timestamp"=>"creationdate"));
         }else{
             //update

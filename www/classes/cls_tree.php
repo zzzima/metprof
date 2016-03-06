@@ -67,7 +67,7 @@ Class cTree{
                 $span_info = $op["editmode"] ? "  [".$dr["id"]."] <span>(подкатегории: ".$dr["subs"].")</span>" : "";
                 $node = array(
                     "id"=> "c".$dr["id"],
-                    "text"=>$span_name.$span_info,
+                    "text"=>$span_name.$span_info."(".$dr["id"].")",
                     "state"=> array(
                         "opened"=>in_array($dr["id"],$opened),
                         //"disabled"=>($op["editmode"] ? ($dr["subs"]>0) : false),

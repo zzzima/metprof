@@ -39,6 +39,14 @@ function GetAssocArray($query)
 	return $dt; 
 }
 
+function GetSingleValue($query){
+    global $dbconn;
+    
+    $rs = $dbconn->Execute($query);
+    
+    return $rs->fields[0];
+}
+
 function GetIndexHash($query)
 {
 	global $dbconn;

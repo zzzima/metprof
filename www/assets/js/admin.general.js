@@ -51,8 +51,9 @@ function getNodeChildrens(node_id, type, editmode){
     return childrens;
 }
 
-function getNodeAttrs(node_id){
+function getNodeAttrs(node_id){  
     var li = $("li#"+node_id+".jstree-node");
+
     var a = {       
         id: li.data("id"),
         type: li.data("type"),
