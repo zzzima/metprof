@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50545
 File Encoding         : 65001
 
-Date: 2016-03-07 00:26:03
+Date: 2016-03-08 23:52:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `catalog` (
   `creationdate` datetime DEFAULT NULL,
   `updatedate` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of catalog
