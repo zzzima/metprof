@@ -46,8 +46,7 @@ $ADODB_FETCH_MODE = ADODB_FETCH_BOTH;
 include_once SITE_DIR."/classes/cls_utils.php";
 $utils = new Utils;
 
-
-include_once "/includes/functions.php";
+include_once SITE_DIR."/includes/functions.php";
 sec_session_start();
 //session_start();
 
