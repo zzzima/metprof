@@ -85,7 +85,8 @@ switch($a){
         exit();
         break;    
     default:
-        $content_template = 'admin_home.tpl';        
+        header('Location: /admin/?a=catalog');
+        //$content_template = 'admin_home.tpl';        
         break;
 }
 

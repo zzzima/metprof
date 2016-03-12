@@ -211,7 +211,7 @@
                             <!-- Box -->
                             <div class="box">
                                 <div class="box__left">
-                                    <div class="icon icon-md primary-color fa-gear"></div>
+                                    <div class="icon icon-md primary-color fa-clock-o"></div>
                                 </div>
                                 <div class="box__body">
                                     <h5>

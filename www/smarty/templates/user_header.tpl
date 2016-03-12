@@ -116,7 +116,7 @@
                             <!-- RD Navbar Nav -->
                             <ul class="rd-navbar-nav">
                                 <li class="{if $a=="home"}active{/if}">
-                                    <a href="/?">Главная</a>
+                                    <a href="/">Главная</a>
                                 </li>
                                 <li class="{if $a=="aboutus"}active{/if}">
                                     <a href="/?a=aboutus">О нас</a>
