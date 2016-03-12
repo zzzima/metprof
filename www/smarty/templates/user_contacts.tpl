@@ -9,7 +9,9 @@
                     Также вы можете связаться с нами по электонной почте или через форму для 
                     связи на этой странице.
                 </p>
-
+                <!--p>
+                <img src="/assets/images/vizitka.jpg">
+                </p-->
                 <!-- Contact Info -->
                 <address class="contact-info">
                     <dl class="heading-6 primary-color x-item">

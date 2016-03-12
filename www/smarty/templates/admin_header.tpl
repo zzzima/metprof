@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title><!--Test-->МетПроф</title>
+<title>{$baseinf.org_name}</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 
