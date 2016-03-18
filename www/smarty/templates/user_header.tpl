@@ -65,7 +65,7 @@
         <![endif]-->        
     </head>
 
-<body>
+<body data-fancybox="{$fancybox}">           
         <div class="page">
             <!--========================================================
                                       HEADER

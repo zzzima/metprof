@@ -86,8 +86,20 @@
         </div>
     </div>
 </section>
-<section class="well-sm-light">                                
+<section class="well-sm-light">      
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>    
+    <div id="map_canvas" class="rd-google-map"></div>  
+    <div id="save-widget">
+<div style="font-size: 13px; background-color: white; margin: 10px; padding: 15px;; box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.3); border-radius: 2px;">        
+     <span style="font-size: 1.1em;"><strong>&quot;МетАллекс&quot;</strong>, металлоизделия, металлоконструкции</span>
+      <p>
+        ул. Строителей, 94, Йошкар-Ола, Респ. Марий Эл, 424006          
+      </p>
+    </div>
+</div>        
+</section>                        
+<!--section class="well-sm-light">                                
     <div class="rd-google-map">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2195.363809932674!2d47.859663515486304!3d56.616414232521485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x415994acc7ddaea3%3A0x68e50d0d445e3170!2z0YPQuy4g0KHRgtGA0L7QuNGC0LXQu9C10LksIDk0LCDQmdC-0YjQutCw0YAt0J7Qu9CwLCDQoNC10YHQvy4g0JzQsNGA0LjQuSDQrdC7LCA0MjQwMDY!5e0!3m2!1sru!2sru!4v1457184322405" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>        
     </div>  
-</section>
+</section-->

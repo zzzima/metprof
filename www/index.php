@@ -25,6 +25,7 @@ switch($a){
         break;
     case "contacts":
         $content_template = "user_contacts.tpl";
+        $jsscripts[] = "js/user.contacts.js";  
         break;
     case "home":
     default:

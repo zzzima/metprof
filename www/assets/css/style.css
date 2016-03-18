@@ -3128,3 +3128,7 @@ ul.x-nav-sub-dropdown{
 .contact-info dl.x-item{
     margin-top: 20px;
 }
+
+#map_canvas{
+    height: 350px;
+}

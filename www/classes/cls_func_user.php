@@ -43,7 +43,8 @@ Class UFunc{
             "dt_c"=>$dt_c,
             "dt_f"=>isset($dt_f) ? $dt_f : array(),
             "dt_rc"=>isset($dt_rc) ? $dt_rc : array(),
-            "cat_file_url"=>CATALOG_IMG_URL
+            "cat_file_url"=>CATALOG_IMG_URL,
+            "fancybox"=>true
         ));
         
         return array(
