@@ -58,10 +58,12 @@ Class UFunc{
         if(strlen($p["email"])==0) { return 'MF003'; }
 
         $smarty->assign("p",$p);
-        $to = $p["email"];
-        $body = $smarty->fetch("_email_template.tpl");        
-        $utils->sendMail($to,EMAIL_SUBJECT,$body);
-        
+
+        $body = $smarty->fetch("_email_template.tpl");   
+        $from=array("name"=>"","email"=>$p["email"]);
+        $to = EMAIL_FROM;
+        //$utils->sendMail($from,$to,EMAIL_SUBJECT,$body);
+        $utils->MailSmtp($from, $to, EMAIL_SUBJECT, $body);
         return 'MF000';
     }
 }

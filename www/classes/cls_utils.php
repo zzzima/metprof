@@ -217,17 +217,92 @@ public function delImageFiles($filetype,$filename){
 // end file
 // 
 // mail
-function sendMail($to,$subject,$body){
+function sendMail($from,$to,$subject,$body){
     
     $headers   = array();
     $headers[] = "MIME-Version: 1.0";
     $headers[] = "Content-type: text/html; charset=windows-1251";
-    $headers[] = "From: ".EMAIL_FROM_NAME." <".EMAIL_FROM.">";
-    $headers[] = "Reply-To: ".$config["email_notification_caption"]." <".EMAIL_FROM.">";
+    $headers[] = "From: ".$from["name"]." <".$from["email"].">";
+    $headers[] = "Reply-To: ".$from["name"]." <".$from["email"].">";
     $headers[] = "Subject: ".$subject;
     $headers[] = "X-Mailer: PHP/".phpversion();
 
     mail($to, $subject, $body, implode("\r\n", $headers));    
+}
+
+function smtp_msg($sock, $msg) {
+  if (!$sock) {
+    printf("Broken socket!\n");
+    exit(1);
+  }
+
+  if (isset($_SERVER['debug']) && $_SERVER['debug']) {
+    printf("Send from us: %s<BR>", nl2br(htmlspecialchars($msg)));
+  }
+  fputs($sock, "$msg\r\n");
+  $str = fgets($sock, 512);
+  if (!$sock) {
+    printf("Socket is down\n");
+    exit(1);
+  }
+  else {
+    if (isset($_SERVER['debug']) && $_SERVER['debug']) {
+      printf("Got from server: %s<BR>", nl2br(htmlspecialchars($str)));
+    }
+
+    $e = explode(" ", $str);
+    $code = array_shift($e);
+    $str = implode(" ", $e);
+
+    if ($code > 499) {
+      printf("Problems with SMTP conversation.<BR><BR>Code %d.<BR>Message %s<BR>", $code, $str);
+      exit(1);
+    }
+  }
+}
+
+// Если нужно показать лог SMTP-сессии, то можно раскомментировать следующую строчку.
+//$_SERVER['debug'] = true;
+function MailSmtp($from, $to, $subject, $body, $headers=false, $debug = 0) {
+
+  $smtp_server = SMTP_SERVER; // адрес SMTP-сервера
+  $smtp_port = SMTP_PORT; // порт SMTP-сервера
+  $smtp_user = SMTP_USER; // Имя пользователя для авторизации на SMTP-сервере
+  $smtp_password = SMTP_PASSW; // Пароль для авторизации на SMTP-сервере
+  $mail_from = $from["email"]; // Ящик, с которого отправляется письмо
+
+  $sock = fsockopen($smtp_server,$smtp_port,$errno,$errstr,30);
+
+  $str = fgets($sock,512);
+  if (!$sock) {
+    printf("Socket is not created\n");
+    exit(1);
+  }
+
+  $this->smtp_msg($sock, "HELO " . $_SERVER['SERVER_NAME']);
+  $this->smtp_msg($sock, "AUTH LOGIN");
+  $this->smtp_msg($sock, base64_encode($smtp_user));
+  $this->smtp_msg($sock, base64_encode($smtp_password));
+  $this->smtp_msg($sock, "MAIL FROM: <" . $mail_from . ">");
+  $this->smtp_msg($sock, "RCPT TO: <" . $to . ">");
+  $this->smtp_msg($sock, "DATA");
+
+  if(!$headers){
+    // Заголовки сообщения, в них определяется кодировка сообщения, поля From, To и т.д.
+    $headers = "MIME-Version: 1.0\r\n";
+    //$headers .= "Content-type: text/html; charset=windows-1251\r\n";
+    $headers .= "Content-type: text/html; charset=utf-8\r\n";
+    $headers .= "To: $to\r\n";
+    $headers .= "From: <".$from["email"].">";      
+  }
+  $headers = "Subject: " . $subject . "\r\n" . $headers;
+
+  $data = $headers . "\r\n\r\n" . $body . "\r\n.";
+
+  $this->smtp_msg($sock, $data);
+  $this->smtp_msg($sock, "QUIT");
+
+  fclose($sock);
 }
 
 //end mail

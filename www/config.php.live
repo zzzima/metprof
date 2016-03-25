@@ -1,8 +1,8 @@
 <?php
 // BASE INFO
-define("SITE_URL","http://metallex.netterra.ru/");
-define("SITE_DIR","/home/host1457067/netterra.ru/htdocs/metallex");
-define("SITE_DOMEN","metallex.netterra.ru");
+define("SITE_URL","http://metallex12.ru/");
+define("SITE_DIR","/home/host1460143/metallex12.ru.ru/htdocs/www");
+define("SITE_DOMEN","metallex12.ru");
 define("ORG_NAME","МетАллекс");
 define("ORG_PHONE1","8(8362) 324-669");
 define("ORG_PHONE2","8(8362) 545-075");
@@ -11,14 +11,14 @@ $config = array();
 // DB settings
 $config["dbtype"] = "mysql";
 $config["dbhost"] = "localhost";
-$config["dbuname"] = "host1457067";
-$config["dbpass"] = "8f696f43";
-$config["dbname"] = "host1457067_metallex";
+$config["dbuname"] = "host1460143";
+$config["dbpass"] = "8655c43d";
+$config["dbname"] = "host1460143_metallex";
 
 // CONSTANTS
 define("EMAIL_DEV","zzma@inbox.ru");
-define("EMAIL_ADMIN","admin@".SITE_DOMEN);
-define("EMAIL_FROM","info@".SITE_DOMEN);
+define("EMAIL_ADMIN","metallex12@mail.ru");
+define("EMAIL_FROM","metallex12@mail.ru");
 define("EMAIL_FROM_NAME",ORG_NAME);
 define("EMAIL_SUBJECT","Запрос с сайта ".SITE_DOMEN);
 

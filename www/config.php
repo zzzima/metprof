@@ -15,10 +15,15 @@ $config["dbuname"] = "root";
 $config["dbpass"] = "";
 $config["dbname"] = "metprof";
 
+//SMTP
+define("SMTP_SERVER","mail.hostland.ru");
+define("SMTP_PORT",25);
+define("SMTP_USER","info@metallex12.ru");
+define("SMTP_PASSW","28hoVatX");     
+
 // CONSTANTS
 define("EMAIL_DEV","zzma@inbox.ru");
-define("EMAIL_ADMIN","admin@".SITE_DOMEN);
-define("EMAIL_FROM","info@".SITE_DOMEN);
+define("EMAIL_FROM","metallex12@mail.ru");
 define("EMAIL_FROM_NAME",ORG_NAME);
 define("EMAIL_SUBJECT","Запрос с сайта ".SITE_DOMEN);
 
@@ -29,4 +34,7 @@ define("WARE_IMG_DIR",SITE_DIR."_docstore/ware_files/");
 
 define("CATALOG_IMG_URL",SITE_URL."_docstore/catalog_files/"); 
 define("WARE_IMG_URL",SITE_URL."_docstore/ware_files/");  
+
+//info@metallex12.ru
+//28hoVatX
 ?>
