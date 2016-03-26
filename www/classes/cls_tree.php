@@ -96,7 +96,7 @@ Class cTree{
         global $arr;
         
         $arr[] = $parent_id;
-        $dt = $cCat->getCatalogByParentId($parent_id);   ;
+        $dt = $cCat->getCatalogByParentId($parent_id);
         if($dt){
             foreach($dt as $dr){
                 $arr = $this->dipTreePathDown($dr["id"],$arr);

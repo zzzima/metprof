@@ -66,5 +66,47 @@ Class UFunc{
         $utils->MailSmtp($from, $to, EMAIL_SUBJECT, $body);
         return 'MF000';
     }
+    
+    public function getKeywords($page,$catalog_id=0){
+        global $cCat;
+        
+        $catalog = $cCat->getCatalogByParentId_Lignt(0,'name');
+
+        $catalog_name = '';
+        if($catalog_id !== 0){
+            $dr = $cCat->getCatalogById($catalog_id,true);
+            if($dr["parent_id"]>0){
+                $dr_p = $cCat->getCatalogById($dr["parent_id"],true);
+            }
+            $catalog_name = mb_strtolower((isset($dr_p["name"])?$dr_p["name"]." ":"").$dr["name"]);
+
+            for($i=0; $i<count($catalog); $i++){
+               if($catalog[$i] == $catalog_name){ unset($catalog[$i]); } 
+            }            
+            if(strlen($catalog_name)>0){ array_unshift($catalog, $catalog_name); }            
+        }
+        
+        $addon = array();
+        switch($page){
+            case "aboutus": 
+                $addon = array("низкая цена","высокое качество","минимальные сроки");
+                break;
+            case "catalog":
+                $addon = array("доставка","монтаж","качественные материалы");
+                break;  
+            case "contacts":
+                $addon = array("марий эл");
+                break; 
+            case "home":
+            default:
+                $addon = array("изделия из металла","низкая цена","высокое качество","минимальные сроки");
+                break;
+        }
+        
+        return array(
+            "catalog"=>$catalog,
+            "full"=>array_merge($catalog, $addon)
+            );
+    }
 }
 ?>

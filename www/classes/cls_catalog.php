@@ -51,6 +51,20 @@ Class cCat{
         return count($dt)>0 ? $dt : false;        
     }
     
+    public function getCatalogByParentId_Lignt($parent_id,$key=null){
+        global $utils;
+        
+        if(isset($key)){
+            $query = "SELECT DISTINCT LOWER($key) FROM catalog WHERE parent_id = ".$parent_id;
+            $arr = $utils->GetIndexHash($query);            
+        }else{
+            $query = "SELECT DISTINCT * FROM catalog WHERE parent_id = ".$parent_id;
+            $arr = $utils->GetAssocArray($query);
+        }
+        
+        return $arr;
+    }
+            
     public function getCatalogByWareId($ware_id){
         global $utils;
         $query = "SELECT DISTINCT catalog_id FROM ware_catalog WHERE ware_id = ".$ware_id;
@@ -130,6 +144,6 @@ Class cCat{
         }        
         
         return true;
-    }
+    }   
 }
 ?>

@@ -4,6 +4,8 @@
         <title>МетАллекс - металоизделия</title>        
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
+<meta name="keywords" content="металлоизделия,Йошкар-Ола,{$keywords}">
+<meta name="description" content="Изготовление металлоизделий на заказ, низкая цена, высокое качество, минимальные сроки изготовления. Мы изготавливаем изделия из металла: {$keywords_catalog}"> 
         <meta name="format-detection" content="telephone=no">
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">        
         <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">        

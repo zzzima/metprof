@@ -19,19 +19,26 @@ switch($a){
         $res = $ufunc->handle_CatalogView($p);
         $content_template = $res["content_template"];
         $jsscripts[] = "js/user.catalog.view.js";  
+        
+        $kw = $ufunc->getKeywords($a,$p["id"]);
         break;
     case "aboutus":
         $content_template = "user_aboutus.tpl";
+        $kw = $ufunc->getKeywords($a);
         break;
     case "contacts":
         $content_template = "user_contacts.tpl";
         $jsscripts[] = "js/user.contacts.js";  
+        
+        $kw = $ufunc->getKeywords($a);
         break;
     case "home":
     default:
         $dt_c = $cCat->getCatalogByParentId(0,$op);
         $smarty->assign("dt_c",$dt_c);
         $content_template = "user_home.tpl";
+        
+        $kw = $ufunc->getKeywords($a);
         break;
 }
 
@@ -49,7 +56,9 @@ $smarty->assign(array(
     "jsscripts"         =>$jsscripts,
     "stylesheet"        =>$stylesheet,
     "baseinf"           =>$baseinf,    
-    "content_template"  =>$content_template
+    "content_template"  =>$content_template,
+    "keywords"          =>implode(',',$kw["full"]),
+    "keywords_catalog"  =>implode(',',$kw["catalog"]),
 ));
 
 $smarty->display('user_index.tpl');
