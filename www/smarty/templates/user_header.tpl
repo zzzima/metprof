@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="wide wow-animation desktop landscape" lang="en">
     <head>
-        <title>МетАллекс - металоизделия</title>        
+        <title>МетАллекс - металоизделия, металлоконструкции</title>        
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
 <meta name="keywords" content="металлоизделия,Йошкар-Ола,{$keywords}">
@@ -29,7 +29,7 @@
         <link rel="stylesheet" href="/assets/css/grid.css">
         <link rel="stylesheet" href="/assets/css/style.css">
         <link rel="stylesheet" href="/assets/css/camera.css">        
-        <!--link rel="icon" href="/images/favicon.ico" type="image/x-icon"-->
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         {section name="css" loop=$stylesheet}
             <link rel='stylesheet' href='{$stylesheet[css]}' type='text/css'>
         {/section}

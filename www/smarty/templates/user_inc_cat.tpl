@@ -1,7 +1,7 @@
                     <div class="col-sm-6 col-md-4">
                         <!-- Product-->
                         <a href="/?a=catalog&id={$dr["id"]}" data-wow-delay="{$dr.sec}s"  class="product wow fadeInUp">
-                            <img alt="{$dr.name}" src="{$dr.filepath}">
+                            <img alt="{$dr.name}" src="{$dr.filepath}" title="{$dr.name}">
                             <div class="product__body bg-secondary">
                                 <h5>{$dr.name}</h5>
                                 <span class="product__body-angle">

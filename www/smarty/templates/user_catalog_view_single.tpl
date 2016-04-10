@@ -28,7 +28,7 @@
                     <div class="thumbnail">
                         <div class="x-mosaic">
                         <a href="{$cat_file_url}{$dt_f[ifl].filename}" rel="galery">
-                            <img src="{$cat_file_url}small/{$dt_f[ifl].filename}" alt="{$dr_c.name}">
+                            <img src="{$cat_file_url}small/{$dt_f[ifl].filename}" alt="{$dr_c.name}" title="{$dr_c.name}">
                         </a>
                         </div>
                     </div>

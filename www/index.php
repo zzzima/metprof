@@ -58,7 +58,7 @@ $smarty->assign(array(
     "baseinf"           =>$baseinf,    
     "content_template"  =>$content_template,
     "keywords"          =>implode(',',$kw["full"]),
-    "keywords_catalog"  =>implode(',',$kw["catalog"]),
+    "keywords_catalog"  =>implode(', ',$kw["catalog"]),
 ));
 
 $smarty->display('user_index.tpl');
